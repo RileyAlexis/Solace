@@ -66,7 +66,7 @@ public static class ItemTypeSeedData
         // 6. WEAPONS & COMBAT ITEMS - IDs 28-31
         // ====================================================
         new ItemTypeModel { Id = 28, Name = "OneHandedWeapon", PlayerEquippable = true, ElligiblePlacement = new List<BodyPlacement> { BodyPlacement.LeftHand } },
-        new ItemTypeModel { Id = 29, Name = "TwoHandedWeapon", PlayerEquippable = true, ElligiblePlacement = new List<BodyPlacement> { BodyPlacement.LeftHand, BodyPlacement.RightHand } },
+        new ItemTypeModel { Id = 29, Name = "TwoHandedWeapon", PlayerEquippable = true, SlotsRequired = 2, ElligiblePlacement = new List<BodyPlacement> { BodyPlacement.LeftHand, BodyPlacement.RightHand } },
         new ItemTypeModel { Id = 30, Name = "SmallWeapon", PlayerEquippable = true, ElligiblePlacement = new List<BodyPlacement> { BodyPlacement.LeftHand } },
 
     // ====================================================

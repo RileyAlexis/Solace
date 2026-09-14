@@ -474,16 +474,16 @@ namespace solace.Migrations
                         .HasColumnName("item_id");
 
                     b.HasKey("Id")
-                        .HasName("pk_item_effect");
+                        .HasName("pk_item_effects");
 
                     b.HasIndex("EffectId")
-                        .HasDatabaseName("ix_item_effect_effect_id");
+                        .HasDatabaseName("ix_item_effects_effect_id");
 
                     b.HasIndex("ItemId", "EffectId")
                         .IsUnique()
-                        .HasDatabaseName("ix_item_effect_item_id_effect_id");
+                        .HasDatabaseName("ix_item_effects_item_id_effect_id");
 
-                    b.ToTable("item_effect", (string)null);
+                    b.ToTable("item_effects", (string)null);
                 });
 
             modelBuilder.Entity("Solace.Models.Items.ItemModel", b =>
@@ -571,10 +571,14 @@ namespace solace.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("player_equippable");
 
-                    b.HasKey("Id")
-                        .HasName("pk_item_type_model");
+                    b.Property<int>("SlotsRequired")
+                        .HasColumnType("integer")
+                        .HasColumnName("slots_required");
 
-                    b.ToTable("item_type_model", (string)null);
+                    b.HasKey("Id")
+                        .HasName("pk_item_types");
+
+                    b.ToTable("item_types", (string)null);
 
                     b.HasData(
                         new
@@ -583,7 +587,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 0 },
                             IsLimitedUse = false,
                             Name = "Headwear",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -591,7 +596,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 2 },
                             IsLimitedUse = false,
                             Name = "FacialMask",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -599,7 +605,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 5 },
                             IsLimitedUse = false,
                             Name = "Necklace",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -607,7 +614,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 1 },
                             IsLimitedUse = false,
                             Name = "Earrings",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -615,7 +623,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 0 },
                             IsLimitedUse = false,
                             Name = "HairAccessory",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -623,7 +632,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 13, 14 },
                             IsLimitedUse = false,
                             Name = "Bracelet",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -631,7 +641,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 23, 24 },
                             IsLimitedUse = false,
                             Name = "Anklet",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -639,7 +650,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15 },
                             IsLimitedUse = false,
                             Name = "Chestplate",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -647,7 +659,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15 },
                             IsLimitedUse = false,
                             Name = "Tunic",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -655,7 +668,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15 },
                             IsLimitedUse = false,
                             Name = "Skirt",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -663,7 +677,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 6 },
                             IsLimitedUse = false,
                             Name = "Overwear",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -671,7 +686,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15 },
                             IsLimitedUse = false,
                             Name = "Undergarment",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -679,7 +695,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 16 },
                             IsLimitedUse = false,
                             Name = "Belt",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -687,7 +704,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 16 },
                             IsLimitedUse = false,
                             Name = "WaistPouch",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -695,7 +713,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 7, 8 },
                             IsLimitedUse = false,
                             Name = "ShoulderPads",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -703,7 +722,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 9, 10 },
                             IsLimitedUse = false,
                             Name = "ArmGuard",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -711,7 +731,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 13, 14 },
                             IsLimitedUse = false,
                             Name = "WristBand",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -719,7 +740,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "Gauntlets",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -727,7 +749,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "Gloves",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -735,7 +758,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 17, 18 },
                             IsLimitedUse = false,
                             Name = "ThighArmor",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -743,7 +767,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 17, 18 },
                             IsLimitedUse = false,
                             Name = "Pants",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -751,7 +776,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 19, 20 },
                             IsLimitedUse = false,
                             Name = "Greaves",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -759,7 +785,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 21, 22 },
                             IsLimitedUse = false,
                             Name = "Boots",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -767,7 +794,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 23, 24 },
                             IsLimitedUse = false,
                             Name = "AnkleCuffs",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -775,14 +803,16 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 35, 40 },
                             IsLimitedUse = false,
                             Name = "ToeRings",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 24,
                             IsLimitedUse = true,
                             Name = "Potion",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -790,21 +820,24 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15 },
                             IsLimitedUse = false,
                             Name = "ToolKit",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 26,
                             IsLimitedUse = false,
                             Name = "Paper",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 43,
                             IsLimitedUse = false,
                             Name = "Book",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -812,7 +845,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11 },
                             IsLimitedUse = false,
                             Name = "OneHandedWeapon",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -820,7 +854,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "TwoHandedWeapon",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 2
                         },
                         new
                         {
@@ -828,7 +863,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11 },
                             IsLimitedUse = false,
                             Name = "SmallWeapon",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -836,7 +872,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "Shield",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -844,7 +881,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "Two-Handled Ranged",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 2
                         },
                         new
                         {
@@ -852,7 +890,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "One-Handled Ranged",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -860,14 +899,16 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 11, 12 },
                             IsLimitedUse = false,
                             Name = "ThrownWeapon",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 53,
                             IsLimitedUse = false,
                             Name = "Ammunition",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -875,7 +916,8 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15 },
                             IsLimitedUse = false,
                             Name = "Backpack",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
@@ -883,56 +925,194 @@ namespace solace.Migrations
                             ElligiblePlacement = new[] { 15, 7, 8 },
                             IsLimitedUse = false,
                             Name = "Satchel",
-                            PlayerEquippable = true
+                            PlayerEquippable = true,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 71,
                             IsLimitedUse = false,
                             Name = "Ingredient",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 90,
                             IsLimitedUse = false,
                             Name = "Tool",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 100,
                             IsLimitedUse = false,
                             Name = "Currency",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 101,
                             IsLimitedUse = false,
                             Name = "Valuable",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 102,
                             IsLimitedUse = false,
                             Name = "TradeGood",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 111,
                             IsLimitedUse = false,
                             Name = "Key",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
                         },
                         new
                         {
                             Id = 120,
                             IsLimitedUse = true,
                             Name = "Food",
-                            PlayerEquippable = false
+                            PlayerEquippable = false,
+                            SlotsRequired = 1
+                        });
+                });
+
+            modelBuilder.Entity("Solace.Models.Player.ActionDefinition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActionPoints")
+                        .HasColumnType("integer")
+                        .HasColumnName("action_points");
+
+                    b.Property<bool>("IsCombatAction")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_combat_action");
+
+                    b.Property<bool>("IsItemAction")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_item_action");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_action_definitions");
+
+                    b.ToTable("action_definitions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ActionPoints = 1,
+                            IsCombatAction = true,
+                            IsItemAction = false,
+                            Name = "Attack"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ActionPoints = 1,
+                            IsCombatAction = true,
+                            IsItemAction = false,
+                            Name = "Defend"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ActionPoints = 2,
+                            IsCombatAction = true,
+                            IsItemAction = false,
+                            Name = "Cast"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ActionPoints = 2,
+                            IsCombatAction = true,
+                            IsItemAction = false,
+                            Name = "Equip"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ActionPoints = 1,
+                            IsCombatAction = true,
+                            IsItemAction = true,
+                            Name = "Use Item"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ActionPoints = 1,
+                            IsCombatAction = true,
+                            IsItemAction = false,
+                            Name = "Run"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Talk"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = true,
+                            Name = "Use Item"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Move"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Buy"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Sell"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Trade"
                         });
                 });
 
@@ -992,15 +1172,15 @@ namespace solace.Migrations
                         .HasColumnName("quantity");
 
                     b.HasKey("Id")
-                        .HasName("pk_player_inventory");
+                        .HasName("pk_player_inventories");
 
                     b.HasIndex("ItemId")
-                        .HasDatabaseName("ix_player_inventory_item_id");
+                        .HasDatabaseName("ix_player_inventories_item_id");
 
                     b.HasIndex("PlayerId")
-                        .HasDatabaseName("ix_player_inventory_player_id");
+                        .HasDatabaseName("ix_player_inventories_player_id");
 
-                    b.ToTable("player_inventory", (string)null);
+                    b.ToTable("player_inventories", (string)null);
                 });
 
             modelBuilder.Entity("Solace.Models.Player.PlayerModel", b =>
@@ -1149,6 +1329,31 @@ namespace solace.Migrations
                         {
                             Id = 12,
                             Name = "Level"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Morale"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Sanity"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "ActionPoints"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "ActionPointsMax"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Charisma"
                         });
                 });
 
@@ -1348,14 +1553,14 @@ namespace solace.Migrations
                         .HasForeignKey("EffectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_item_effect_effects_effect_id");
+                        .HasConstraintName("fk_item_effects_effects_effect_id");
 
                     b.HasOne("Solace.Models.Items.ItemModel", "Item")
                         .WithMany("Effects")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_item_effect_items_item_id");
+                        .HasConstraintName("fk_item_effects_items_item_id");
 
                     b.Navigation("Effect");
 
@@ -1369,7 +1574,7 @@ namespace solace.Migrations
                         .HasForeignKey("ItemTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_items_item_type_model_item_type_id");
+                        .HasConstraintName("fk_items_item_types_item_type_id");
 
                     b.Navigation("Type");
                 });
@@ -1402,14 +1607,14 @@ namespace solace.Migrations
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_player_inventory_items_item_id");
+                        .HasConstraintName("fk_player_inventories_items_item_id");
 
                     b.HasOne("Solace.Models.Player.PlayerModel", "Player")
                         .WithMany("PlayerInventory")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_player_inventory_player_player_id");
+                        .HasConstraintName("fk_player_inventories_player_player_id");
 
                     b.Navigation("Item");
 

@@ -4,6 +4,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace solace.Migrations
 {
     /// <inheritdoc />
@@ -12,6 +14,22 @@ namespace solace.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "action_definitions",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    action_points = table.Column<int>(type: "integer", nullable: false),
+                    is_combat_action = table.Column<bool>(type: "boolean", nullable: false),
+                    is_item_action = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_action_definitions", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -71,19 +89,20 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "item_type_model",
+                name: "item_types",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false),
                     elligible_placement = table.Column<int[]>(type: "integer[]", nullable: true),
+                    slots_required = table.Column<int>(type: "integer", nullable: false),
                     player_equippable = table.Column<bool>(type: "boolean", nullable: false),
                     is_limited_use = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_item_type_model", x => x.id);
+                    table.PrimaryKey("pk_item_types", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -312,9 +331,9 @@ namespace solace.Migrations
                 {
                     table.PrimaryKey("pk_items", x => x.id);
                     table.ForeignKey(
-                        name: "fk_items_item_type_model_item_type_id",
+                        name: "fk_items_item_types_item_type_id",
                         column: x => x.item_type_id,
-                        principalTable: "item_type_model",
+                        principalTable: "item_types",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -405,7 +424,7 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "item_effect",
+                name: "item_effects",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -415,15 +434,15 @@ namespace solace.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_item_effect", x => x.id);
+                    table.PrimaryKey("pk_item_effects", x => x.id);
                     table.ForeignKey(
-                        name: "fk_item_effect_effects_effect_id",
+                        name: "fk_item_effects_effects_effect_id",
                         column: x => x.effect_id,
                         principalTable: "effects",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_item_effect_items_item_id",
+                        name: "fk_item_effects_items_item_id",
                         column: x => x.item_id,
                         principalTable: "items",
                         principalColumn: "id",
@@ -455,6 +474,129 @@ namespace solace.Migrations
                         principalTable: "player",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "player_inventories",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    player_id = table.Column<int>(type: "integer", nullable: false),
+                    item_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_player_inventories", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_player_inventories_items_item_id",
+                        column: x => x.item_id,
+                        principalTable: "items",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_player_inventories_player_player_id",
+                        column: x => x.player_id,
+                        principalTable: "player",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "action_definitions",
+                columns: new[] { "id", "action_points", "is_combat_action", "is_item_action", "name" },
+                values: new object[,]
+                {
+                    { 1, 1, true, false, "Attack" },
+                    { 2, 1, true, false, "Defend" },
+                    { 3, 2, true, false, "Cast" },
+                    { 4, 2, true, false, "Equip" },
+                    { 5, 1, true, true, "Use Item" },
+                    { 6, 1, true, false, "Run" },
+                    { 7, 0, false, false, "Talk" },
+                    { 8, 0, false, true, "Use Item" },
+                    { 9, 0, false, false, "Move" },
+                    { 10, 0, false, false, "Buy" },
+                    { 11, 0, false, false, "Sell" },
+                    { 12, 0, false, false, "Trade" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "item_types",
+                columns: new[] { "id", "elligible_placement", "is_limited_use", "name", "player_equippable", "slots_required" },
+                values: new object[,]
+                {
+                    { 1, new[] { 0 }, false, "Headwear", true, 1 },
+                    { 2, new[] { 2 }, false, "FacialMask", true, 1 },
+                    { 3, new[] { 5 }, false, "Necklace", true, 1 },
+                    { 4, new[] { 1 }, false, "Earrings", true, 1 },
+                    { 5, new[] { 0 }, false, "HairAccessory", true, 1 },
+                    { 6, new[] { 15 }, false, "Chestplate", true, 1 },
+                    { 7, new[] { 15 }, false, "Tunic", true, 1 },
+                    { 8, new[] { 15 }, false, "Skirt", true, 1 },
+                    { 9, new[] { 6 }, false, "Overwear", true, 1 },
+                    { 10, new[] { 15 }, false, "Undergarment", true, 1 },
+                    { 11, new[] { 16 }, false, "Belt", true, 1 },
+                    { 12, new[] { 16 }, false, "WaistPouch", true, 1 },
+                    { 13, new[] { 7, 8 }, false, "ShoulderPads", true, 1 },
+                    { 14, new[] { 9, 10 }, false, "ArmGuard", true, 1 },
+                    { 15, new[] { 13, 14 }, false, "WristBand", true, 1 },
+                    { 16, new[] { 11, 12 }, false, "Gauntlets", true, 1 },
+                    { 17, new[] { 11, 12 }, false, "Gloves", true, 1 },
+                    { 18, new[] { 17, 18 }, false, "ThighArmor", true, 1 },
+                    { 19, new[] { 17, 18 }, false, "Pants", true, 1 },
+                    { 20, new[] { 19, 20 }, false, "Greaves", true, 1 },
+                    { 21, new[] { 21, 22 }, false, "Boots", true, 1 },
+                    { 22, new[] { 23, 24 }, false, "AnkleCuffs", true, 1 },
+                    { 23, new[] { 35, 40 }, false, "ToeRings", true, 1 },
+                    { 24, null, true, "Potion", false, 1 },
+                    { 25, new[] { 15 }, false, "ToolKit", true, 1 },
+                    { 26, null, false, "Paper", false, 1 },
+                    { 27, new[] { 13, 14 }, false, "Bracelet", true, 1 },
+                    { 28, new[] { 11 }, false, "OneHandedWeapon", true, 1 },
+                    { 29, new[] { 11, 12 }, false, "TwoHandedWeapon", true, 2 },
+                    { 30, new[] { 11 }, false, "SmallWeapon", true, 1 },
+                    { 31, new[] { 23, 24 }, false, "Anklet", true, 1 },
+                    { 40, new[] { 11, 12 }, false, "Shield", true, 1 },
+                    { 43, null, false, "Book", false, 1 },
+                    { 50, new[] { 11, 12 }, false, "Two-Handled Ranged", true, 2 },
+                    { 51, new[] { 11, 12 }, false, "One-Handled Ranged", true, 1 },
+                    { 52, new[] { 11, 12 }, false, "ThrownWeapon", true, 1 },
+                    { 53, null, false, "Ammunition", false, 1 },
+                    { 60, new[] { 15 }, false, "Backpack", true, 1 },
+                    { 61, new[] { 15, 7, 8 }, false, "Satchel", true, 1 },
+                    { 71, null, false, "Ingredient", false, 1 },
+                    { 90, null, false, "Tool", false, 1 },
+                    { 100, null, false, "Currency", false, 1 },
+                    { 101, null, false, "Valuable", false, 1 },
+                    { 102, null, false, "TradeGood", false, 1 },
+                    { 111, null, false, "Key", false, 1 },
+                    { 120, null, true, "Food", false, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "stat_definitions",
+                columns: new[] { "id", "name" },
+                values: new object[,]
+                {
+                    { 1, "Health" },
+                    { 2, "HealthMax" },
+                    { 3, "Stamina" },
+                    { 4, "Strength" },
+                    { 5, "Intelligence" },
+                    { 6, "Education" },
+                    { 7, "Mana" },
+                    { 8, "ManaMax" },
+                    { 9, "MagicLevel" },
+                    { 10, "TechLevel" },
+                    { 11, "Experience" },
+                    { 12, "Level" },
+                    { 13, "Morale" },
+                    { 14, "Sanity" },
+                    { 15, "ActionPoints" },
+                    { 16, "ActionPointsMax" },
+                    { 17, "Charisma" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -517,13 +659,13 @@ namespace solace.Migrations
                 column: "terrain_type_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_item_effect_effect_id",
-                table: "item_effect",
+                name: "ix_item_effects_effect_id",
+                table: "item_effects",
                 column: "effect_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_item_effect_item_id_effect_id",
-                table: "item_effect",
+                name: "ix_item_effects_item_id_effect_id",
+                table: "item_effects",
                 columns: new[] { "item_id", "effect_id" },
                 unique: true);
 
@@ -544,6 +686,16 @@ namespace solace.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_player_inventories_item_id",
+                table: "player_inventories",
+                column: "item_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_player_inventories_player_id",
+                table: "player_inventories",
+                column: "player_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_player_stat_values_player_id_stat_definition_id",
                 table: "player_stat_values",
                 columns: new[] { "player_id", "stat_definition_id" },
@@ -558,6 +710,9 @@ namespace solace.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "action_definitions");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -580,10 +735,13 @@ namespace solace.Migrations
                 name: "hex_tiles");
 
             migrationBuilder.DropTable(
-                name: "item_effect");
+                name: "item_effects");
 
             migrationBuilder.DropTable(
                 name: "player_equipment");
+
+            migrationBuilder.DropTable(
+                name: "player_inventories");
 
             migrationBuilder.DropTable(
                 name: "player_stat_values");
@@ -619,7 +777,7 @@ namespace solace.Migrations
                 name: "stat_definitions");
 
             migrationBuilder.DropTable(
-                name: "item_type_model");
+                name: "item_types");
         }
     }
 }

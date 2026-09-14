@@ -19,10 +19,14 @@ public class SolaceDbContext(DbContextOptions<SolaceDbContext> options) : Identi
     public DbSet<PlayerModel> Player { get; set; }
     public DbSet<PlayerEquipment> PlayerEquipment { get; set; }
     public DbSet<PlayerStatValue> PlayerStatValues { get; set; }
+    public DbSet<PlayerInventory> PlayerInventories { get; set; }
     public DbSet<StatDefinition> StatDefinitions { get; set; }
     public DbSet<ItemModel> Items { get; set; }
+    public DbSet<ItemTypeModel> ItemTypes { get; set; }
+    public DbSet<ItemEffect> ItemEffects { get; set; }
     public DbSet<EffectsModel> Effects { get; set; }
     public DbSet<EffectAffectedStat> EffectAffectedStats { get; set; }
+    public DbSet<ActionDefinition> ActionDefinitions { get; set; }
 
     // ! Add Settlements and buildings models
 
