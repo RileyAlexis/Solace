@@ -7,12 +7,9 @@ public class EffectsModel
 
     public int AbilityAffectedId { get; set; }
     public List<BodyPlacement>? AffectedBodyPart { get; set; }
-    public int DurationRounds { get; set; }
-    public TimeSpan DurationTime { get; set; }
     public bool IsInstant { get; set; }
-    public int ReductionRate { get; set; }
 
     public ICollection<EffectAffectedStat> AffectedStats { get; set; } = new List<EffectAffectedStat>();
-
+    public ICollection<EffectAffectedAbility> DeniedActions { get; set; } = new List<EffectAffectedAbility>();
 
 }

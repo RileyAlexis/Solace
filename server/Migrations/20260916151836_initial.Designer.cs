@@ -12,7 +12,7 @@ using Solace.Database;
 namespace solace.Migrations
 {
     [DbContext(typeof(SolaceDbContext))]
-    [Migration("20260914220853_initial")]
+    [Migration("20260916151836_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -24,6 +24,42 @@ namespace solace.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("BuildingModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BuildingTypeId")
+                        .HasColumnType("integer")
+                        .HasColumnName("building_type_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("SettlementId")
+                        .HasColumnType("integer")
+                        .HasColumnName("settlement_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_buildings");
+
+                    b.HasIndex("BuildingTypeId")
+                        .HasDatabaseName("ix_buildings_building_type_id");
+
+                    b.ToTable("buildings", (string)null);
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -269,6 +305,351 @@ namespace solace.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AllowsCombat")
+                        .HasColumnType("boolean")
+                        .HasColumnName("allows_combat");
+
+                    b.Property<bool>("HasInventory")
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_inventory");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_building_definitions");
+
+                    b.ToTable("building_definitions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Store"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AllowsCombat = true,
+                            HasInventory = true,
+                            Name = "Guild"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Inn"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Tavern"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Bank"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Storage"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AllowsCombat = true,
+                            HasInventory = false,
+                            Name = "Arena"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "House"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AllowsCombat = true,
+                            HasInventory = true,
+                            Name = "TrainingHall"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AllowsCombat = false,
+                            HasInventory = false,
+                            Name = "ServiceProvider"
+                        });
+                });
+
+            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinitionAction", b =>
+                {
+                    b.Property<int>("BuildingDefinitionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("building_definition_id");
+
+                    b.Property<int>("ActionDefinitionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("action_definition_id");
+
+                    b.HasKey("BuildingDefinitionId", "ActionDefinitionId")
+                        .HasName("pk_building_definition_actions");
+
+                    b.HasIndex("ActionDefinitionId")
+                        .HasDatabaseName("ix_building_definition_actions_action_definition_id");
+
+                    b.ToTable("building_definition_actions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 10
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 11
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 13
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 2,
+                            ActionDefinitionId = 14
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 2,
+                            ActionDefinitionId = 18
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 2,
+                            ActionDefinitionId = 19
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 3,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 3,
+                            ActionDefinitionId = 17
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 3,
+                            ActionDefinitionId = 21
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 10
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 5
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 21
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 5,
+                            ActionDefinitionId = 15
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 5,
+                            ActionDefinitionId = 16
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 6,
+                            ActionDefinitionId = 9
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 6,
+                            ActionDefinitionId = 15
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 6,
+                            ActionDefinitionId = 16
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 7,
+                            ActionDefinitionId = 20
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 8,
+                            ActionDefinitionId = 17
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 8,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 8,
+                            ActionDefinitionId = 21
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 9,
+                            ActionDefinitionId = 14
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 10,
+                            ActionDefinitionId = 10
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 10,
+                            ActionDefinitionId = 7
+                        });
+                });
+
+            modelBuilder.Entity("Solace.Models.Buildings.BuildingInventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("integer")
+                        .HasColumnName("building_id");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.HasKey("Id")
+                        .HasName("pk_building_inventory");
+
+                    b.HasIndex("BuildingId")
+                        .HasDatabaseName("ix_building_inventory_building_id");
+
+                    b.HasIndex("ItemId")
+                        .HasDatabaseName("ix_building_inventory_item_id");
+
+                    b.ToTable("building_inventory", (string)null);
+                });
+
+            modelBuilder.Entity("Solace.Models.Effects.EffectAffectedAbility", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("action_id");
+
+                    b.Property<int>("EffectId")
+                        .HasColumnType("integer")
+                        .HasColumnName("effect_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_effect_affected_abilities");
+
+                    b.HasIndex("ActionId")
+                        .HasDatabaseName("ix_effect_affected_abilities_action_id");
+
+                    b.HasIndex("EffectId")
+                        .HasDatabaseName("ix_effect_affected_abilities_effect_id");
+
+                    b.ToTable("effect_affected_abilities", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ActionId = 1,
+                            EffectId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ActionId = 2,
+                            EffectId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ActionId = 3,
+                            EffectId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ActionId = 4,
+                            EffectId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ActionId = 5,
+                            EffectId = 3
+                        });
+                });
+
             modelBuilder.Entity("Solace.Models.Effects.EffectAffectedStat", b =>
                 {
                     b.Property<int>("Id")
@@ -289,14 +670,129 @@ namespace solace.Migrations
                     b.HasKey("Id")
                         .HasName("pk_effect_affected_stats");
 
+                    b.HasIndex("EffectId")
+                        .HasDatabaseName("ix_effect_affected_stats_effect_id");
+
                     b.HasIndex("StatDefinitionId")
                         .HasDatabaseName("ix_effect_affected_stats_stat_definition_id");
 
-                    b.HasIndex("EffectId", "StatDefinitionId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_effect_affected_stats_effect_id_stat_definition_id");
-
                     b.ToTable("effect_affected_stats", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EffectId = 1,
+                            StatDefinitionId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EffectId = 2,
+                            StatDefinitionId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EffectId = 4,
+                            StatDefinitionId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EffectId = 5,
+                            StatDefinitionId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            EffectId = 6,
+                            StatDefinitionId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            EffectId = 7,
+                            StatDefinitionId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            EffectId = 8,
+                            StatDefinitionId = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            EffectId = 9,
+                            StatDefinitionId = 6
+                        },
+                        new
+                        {
+                            Id = 9,
+                            EffectId = 10,
+                            StatDefinitionId = 7
+                        },
+                        new
+                        {
+                            Id = 10,
+                            EffectId = 11,
+                            StatDefinitionId = 8
+                        },
+                        new
+                        {
+                            Id = 11,
+                            EffectId = 12,
+                            StatDefinitionId = 9
+                        },
+                        new
+                        {
+                            Id = 12,
+                            EffectId = 13,
+                            StatDefinitionId = 10
+                        },
+                        new
+                        {
+                            Id = 13,
+                            EffectId = 14,
+                            StatDefinitionId = 11
+                        },
+                        new
+                        {
+                            Id = 14,
+                            EffectId = 15,
+                            StatDefinitionId = 12
+                        },
+                        new
+                        {
+                            Id = 15,
+                            EffectId = 16,
+                            StatDefinitionId = 13
+                        },
+                        new
+                        {
+                            Id = 16,
+                            EffectId = 17,
+                            StatDefinitionId = 14
+                        },
+                        new
+                        {
+                            Id = 17,
+                            EffectId = 18,
+                            StatDefinitionId = 15
+                        },
+                        new
+                        {
+                            Id = 18,
+                            EffectId = 19,
+                            StatDefinitionId = 16
+                        },
+                        new
+                        {
+                            Id = 19,
+                            EffectId = 20,
+                            StatDefinitionId = 17
+                        });
                 });
 
             modelBuilder.Entity("Solace.Models.Effects.EffectsModel", b =>
@@ -316,14 +812,6 @@ namespace solace.Migrations
                         .HasColumnType("integer[]")
                         .HasColumnName("affected_body_part");
 
-                    b.Property<int>("DurationRounds")
-                        .HasColumnType("integer")
-                        .HasColumnName("duration_rounds");
-
-                    b.Property<TimeSpan>("DurationTime")
-                        .HasColumnType("interval")
-                        .HasColumnName("duration_time");
-
                     b.Property<bool>("IsInstant")
                         .HasColumnType("boolean")
                         .HasColumnName("is_instant");
@@ -333,14 +821,152 @@ namespace solace.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<int>("ReductionRate")
-                        .HasColumnType("integer")
-                        .HasColumnName("reduction_rate");
-
                     b.HasKey("Id")
                         .HasName("pk_effects");
 
                     b.ToTable("effects", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "Blunt Damaage"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "Piercing Damage"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "Stun"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "Heal"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModMaxHealth"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModStamina"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModStrength"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModIntelligence"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModEducation"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModMana"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "MosMaxHealth"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModMagicLevel"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModTechLevel"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModExperience"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModLevel"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModMorale"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModSanity"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModActionPoints"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModActionPointsMax"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AbilityAffectedId = 0,
+                            IsInstant = true,
+                            Name = "ModCharisma"
+                        });
                 });
 
             modelBuilder.Entity("Solace.Models.HexMaps.HexTile", b =>
@@ -1111,11 +1737,75 @@ namespace solace.Migrations
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 13,
                             ActionPoints = 0,
                             IsCombatAction = false,
                             IsItemAction = false,
                             Name = "Trade"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Train"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Deposit"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Withdraw"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Rest"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Hire"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Fire"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "InitiateCombat"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ActionPoints = 0,
+                            IsCombatAction = false,
+                            IsItemAction = false,
+                            Name = "Eat"
                         });
                 });
 
@@ -1450,6 +2140,18 @@ namespace solace.Migrations
                     b.ToTable("solace_server", (string)null);
                 });
 
+            modelBuilder.Entity("BuildingModel", b =>
+                {
+                    b.HasOne("Solace.Models.Buildings.BuildingDefinition", "BuildingType")
+                        .WithMany()
+                        .HasForeignKey("BuildingTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_buildings_building_definitions_building_type_id");
+
+                    b.Navigation("BuildingType");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1505,6 +2207,69 @@ namespace solace.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_asp_net_user_tokens_asp_net_users_user_id");
+                });
+
+            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinitionAction", b =>
+                {
+                    b.HasOne("Solace.Models.Player.ActionDefinition", "ActionDefinition")
+                        .WithMany()
+                        .HasForeignKey("ActionDefinitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_definition_actions_action_definitions_action_defin");
+
+                    b.HasOne("Solace.Models.Buildings.BuildingDefinition", "BuildingDefinition")
+                        .WithMany("AvailableActions")
+                        .HasForeignKey("BuildingDefinitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_definition_actions_building_definitions_building_d");
+
+                    b.Navigation("ActionDefinition");
+
+                    b.Navigation("BuildingDefinition");
+                });
+
+            modelBuilder.Entity("Solace.Models.Buildings.BuildingInventory", b =>
+                {
+                    b.HasOne("BuildingModel", "Building")
+                        .WithMany("Inventory")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_inventory_buildings_building_id");
+
+                    b.HasOne("Solace.Models.Items.ItemModel", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_inventory_items_item_id");
+
+                    b.Navigation("Building");
+
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("Solace.Models.Effects.EffectAffectedAbility", b =>
+                {
+                    b.HasOne("Solace.Models.Player.ActionDefinition", "ActionDefinition")
+                        .WithMany()
+                        .HasForeignKey("ActionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_effect_affected_abilities_action_definitions_action_id");
+
+                    b.HasOne("Solace.Models.Effects.EffectsModel", "Effect")
+                        .WithMany("DeniedActions")
+                        .HasForeignKey("EffectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_effect_affected_abilities_effects_effect_id");
+
+                    b.Navigation("ActionDefinition");
+
+                    b.Navigation("Effect");
                 });
 
             modelBuilder.Entity("Solace.Models.Effects.EffectAffectedStat", b =>
@@ -1645,9 +2410,21 @@ namespace solace.Migrations
                     b.Navigation("StatDefinition");
                 });
 
+            modelBuilder.Entity("BuildingModel", b =>
+                {
+                    b.Navigation("Inventory");
+                });
+
+            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinition", b =>
+                {
+                    b.Navigation("AvailableActions");
+                });
+
             modelBuilder.Entity("Solace.Models.Effects.EffectsModel", b =>
                 {
                     b.Navigation("AffectedStats");
+
+                    b.Navigation("DeniedActions");
                 });
 
             modelBuilder.Entity("Solace.Models.HexMaps.SolaceMap", b =>

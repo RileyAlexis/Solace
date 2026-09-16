@@ -6,6 +6,7 @@ using Solace.Models.HexMaps;
 using Solace.Models.Player;
 using Solace.Models.Effects;
 using Solace.Models.Items;
+using Solace.Models.Buildings;
 
 namespace Solace.Database;
 
@@ -26,9 +27,14 @@ public class SolaceDbContext(DbContextOptions<SolaceDbContext> options) : Identi
     public DbSet<ItemEffect> ItemEffects { get; set; }
     public DbSet<EffectsModel> Effects { get; set; }
     public DbSet<EffectAffectedStat> EffectAffectedStats { get; set; }
+    public DbSet<EffectAffectedAbility> EffectAffectedAbilities { get; set; }
     public DbSet<ActionDefinition> ActionDefinitions { get; set; }
+    public DbSet<BuildingModel> Buildings { get; set; }
+    public DbSet<BuildingDefinition> BuildingDefinitions { get; set; }
+    public DbSet<BuildingInventory> BuildingInventory { get; set; }
+    public DbSet<BuildingDefinitionAction> BuildingDefinitionActions { get; set; }
 
-    // ! Add Settlements and buildings models
+    // ! Add Settlements models
 
 
 
@@ -41,10 +47,10 @@ public class SolaceDbContext(DbContextOptions<SolaceDbContext> options) : Identi
             .Property(e => e.CodeOfConduct)
             .HasColumnType("text");
 
-
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SolaceDbContext).Assembly);
 
     }
+
 
 
 }

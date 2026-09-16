@@ -70,6 +70,21 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "building_definitions",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    has_inventory = table.Column<bool>(type: "boolean", nullable: false),
+                    allows_combat = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_building_definitions", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "effects",
                 columns: table => new
                 {
@@ -78,10 +93,7 @@ namespace solace.Migrations
                     name = table.Column<string>(type: "text", nullable: false),
                     ability_affected_id = table.Column<int>(type: "integer", nullable: false),
                     affected_body_part = table.Column<int[]>(type: "integer[]", nullable: true),
-                    duration_rounds = table.Column<int>(type: "integer", nullable: false),
-                    duration_time = table.Column<TimeSpan>(type: "interval", nullable: false),
-                    is_instant = table.Column<bool>(type: "boolean", nullable: false),
-                    reduction_rate = table.Column<int>(type: "integer", nullable: false)
+                    is_instant = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -311,6 +323,78 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "building_definition_actions",
+                columns: table => new
+                {
+                    building_definition_id = table.Column<int>(type: "integer", nullable: false),
+                    action_definition_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_building_definition_actions", x => new { x.building_definition_id, x.action_definition_id });
+                    table.ForeignKey(
+                        name: "fk_building_definition_actions_action_definitions_action_defin",
+                        column: x => x.action_definition_id,
+                        principalTable: "action_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_building_definition_actions_building_definitions_building_d",
+                        column: x => x.building_definition_id,
+                        principalTable: "building_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "buildings",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    settlement_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false),
+                    building_type_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_buildings", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_buildings_building_definitions_building_type_id",
+                        column: x => x.building_type_id,
+                        principalTable: "building_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "effect_affected_abilities",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    effect_id = table.Column<int>(type: "integer", nullable: false),
+                    action_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_effect_affected_abilities", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_effect_affected_abilities_action_definitions_action_id",
+                        column: x => x.action_id,
+                        principalTable: "action_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_effect_affected_abilities_effects_effect_id",
+                        column: x => x.effect_id,
+                        principalTable: "effects",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "items",
                 columns: table => new
                 {
@@ -424,6 +508,33 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "building_inventory",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    building_id = table.Column<int>(type: "integer", nullable: false),
+                    item_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_building_inventory", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_building_inventory_buildings_building_id",
+                        column: x => x.building_id,
+                        principalTable: "buildings",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_building_inventory_items_item_id",
+                        column: x => x.item_id,
+                        principalTable: "items",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "item_effects",
                 columns: table => new
                 {
@@ -519,7 +630,59 @@ namespace solace.Migrations
                     { 9, 0, false, false, "Move" },
                     { 10, 0, false, false, "Buy" },
                     { 11, 0, false, false, "Sell" },
-                    { 12, 0, false, false, "Trade" }
+                    { 13, 0, false, false, "Trade" },
+                    { 14, 0, false, false, "Train" },
+                    { 15, 0, false, false, "Deposit" },
+                    { 16, 0, false, false, "Withdraw" },
+                    { 17, 0, false, false, "Rest" },
+                    { 18, 0, false, false, "Hire" },
+                    { 19, 0, false, false, "Fire" },
+                    { 20, 0, false, false, "InitiateCombat" },
+                    { 21, 0, false, false, "Eat" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "building_definitions",
+                columns: new[] { "id", "allows_combat", "has_inventory", "name" },
+                values: new object[,]
+                {
+                    { 1, false, true, "Store" },
+                    { 2, true, true, "Guild" },
+                    { 3, false, true, "Inn" },
+                    { 4, false, true, "Tavern" },
+                    { 5, false, true, "Bank" },
+                    { 6, false, true, "Storage" },
+                    { 7, true, false, "Arena" },
+                    { 8, false, true, "House" },
+                    { 9, true, true, "TrainingHall" },
+                    { 10, false, false, "ServiceProvider" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "effects",
+                columns: new[] { "id", "ability_affected_id", "affected_body_part", "is_instant", "name" },
+                values: new object[,]
+                {
+                    { 1, 0, null, true, "Blunt Damaage" },
+                    { 2, 0, null, true, "Piercing Damage" },
+                    { 3, 0, null, true, "Stun" },
+                    { 4, 0, null, true, "Heal" },
+                    { 5, 0, null, true, "ModMaxHealth" },
+                    { 6, 0, null, true, "ModStamina" },
+                    { 7, 0, null, true, "ModStrength" },
+                    { 8, 0, null, true, "ModIntelligence" },
+                    { 9, 0, null, true, "ModEducation" },
+                    { 10, 0, null, true, "ModMana" },
+                    { 11, 0, null, true, "MosMaxHealth" },
+                    { 12, 0, null, true, "ModMagicLevel" },
+                    { 13, 0, null, true, "ModTechLevel" },
+                    { 14, 0, null, true, "ModExperience" },
+                    { 15, 0, null, true, "ModLevel" },
+                    { 16, 0, null, true, "ModMorale" },
+                    { 17, 0, null, true, "ModSanity" },
+                    { 18, 0, null, true, "ModActionPoints" },
+                    { 19, 0, null, true, "ModActionPointsMax" },
+                    { 20, 0, null, true, "ModCharisma" }
                 });
 
             migrationBuilder.InsertData(
@@ -599,6 +762,77 @@ namespace solace.Migrations
                     { 17, "Charisma" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "building_definition_actions",
+                columns: new[] { "action_definition_id", "building_definition_id" },
+                values: new object[,]
+                {
+                    { 7, 1 },
+                    { 10, 1 },
+                    { 11, 1 },
+                    { 13, 1 },
+                    { 14, 2 },
+                    { 18, 2 },
+                    { 19, 2 },
+                    { 7, 3 },
+                    { 17, 3 },
+                    { 21, 3 },
+                    { 5, 4 },
+                    { 7, 4 },
+                    { 10, 4 },
+                    { 21, 4 },
+                    { 15, 5 },
+                    { 16, 5 },
+                    { 9, 6 },
+                    { 15, 6 },
+                    { 16, 6 },
+                    { 20, 7 },
+                    { 7, 8 },
+                    { 17, 8 },
+                    { 21, 8 },
+                    { 14, 9 },
+                    { 7, 10 },
+                    { 10, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "effect_affected_abilities",
+                columns: new[] { "id", "action_id", "effect_id" },
+                values: new object[,]
+                {
+                    { 1, 1, 3 },
+                    { 2, 2, 3 },
+                    { 3, 3, 3 },
+                    { 4, 4, 3 },
+                    { 5, 5, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "effect_affected_stats",
+                columns: new[] { "id", "effect_id", "stat_definition_id" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 },
+                    { 3, 4, 1 },
+                    { 4, 5, 2 },
+                    { 5, 6, 3 },
+                    { 6, 7, 4 },
+                    { 7, 8, 5 },
+                    { 8, 9, 6 },
+                    { 9, 10, 7 },
+                    { 10, 11, 8 },
+                    { 11, 12, 9 },
+                    { 12, 13, 10 },
+                    { 13, 14, 11 },
+                    { 14, 15, 12 },
+                    { 15, 16, 13 },
+                    { 16, 17, 14 },
+                    { 17, 18, 15 },
+                    { 18, 19, 16 },
+                    { 19, 20, 17 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_asp_net_role_claims_role_id",
                 table: "AspNetRoleClaims",
@@ -637,10 +871,39 @@ namespace solace.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_effect_affected_stats_effect_id_stat_definition_id",
+                name: "ix_building_definition_actions_action_definition_id",
+                table: "building_definition_actions",
+                column: "action_definition_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_building_inventory_building_id",
+                table: "building_inventory",
+                column: "building_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_building_inventory_item_id",
+                table: "building_inventory",
+                column: "item_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_buildings_building_type_id",
+                table: "buildings",
+                column: "building_type_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_effect_affected_abilities_action_id",
+                table: "effect_affected_abilities",
+                column: "action_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_effect_affected_abilities_effect_id",
+                table: "effect_affected_abilities",
+                column: "effect_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_effect_affected_stats_effect_id",
                 table: "effect_affected_stats",
-                columns: new[] { "effect_id", "stat_definition_id" },
-                unique: true);
+                column: "effect_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_effect_affected_stats_stat_definition_id",
@@ -711,9 +974,6 @@ namespace solace.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "action_definitions");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -727,6 +987,15 @@ namespace solace.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "building_definition_actions");
+
+            migrationBuilder.DropTable(
+                name: "building_inventory");
+
+            migrationBuilder.DropTable(
+                name: "effect_affected_abilities");
 
             migrationBuilder.DropTable(
                 name: "effect_affected_stats");
@@ -759,6 +1028,12 @@ namespace solace.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "buildings");
+
+            migrationBuilder.DropTable(
+                name: "action_definitions");
+
+            migrationBuilder.DropTable(
                 name: "solace_map");
 
             migrationBuilder.DropTable(
@@ -775,6 +1050,9 @@ namespace solace.Migrations
 
             migrationBuilder.DropTable(
                 name: "stat_definitions");
+
+            migrationBuilder.DropTable(
+                name: "building_definitions");
 
             migrationBuilder.DropTable(
                 name: "item_types");
