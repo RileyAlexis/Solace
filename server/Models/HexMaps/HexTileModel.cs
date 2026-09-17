@@ -1,3 +1,4 @@
+using Solace.Models.Settlements;
 namespace Solace.Models.HexMaps;
 
 public class HexTile
@@ -10,8 +11,8 @@ public class HexTile
     public int S { get; set; }
     public int Level { get; set; }
     public HexTileType HexTileType { get; set; }
-
-
     public int TerrainTypeId { get; set; }
     public required TerrainType TerrainType { get; set; }
+    public int? SettlementId { get; set; }
+    public SettlementModel? Settlement { get; set; }
 }

@@ -1,4 +1,4 @@
-using Solace.Models.Buildings;
+using Solace.Models.Settlements;
 
 namespace Solace.Models.Seeds;
 

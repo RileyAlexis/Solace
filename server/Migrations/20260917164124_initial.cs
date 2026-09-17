@@ -85,6 +85,22 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "class_model",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false),
+                    magic_user = table.Column<bool>(type: "boolean", nullable: false),
+                    use_two_handed_weapons = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_class_model", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "effects",
                 columns: table => new
                 {
@@ -115,22 +131,6 @@ namespace solace.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_item_types", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "player",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "text", nullable: false),
-                    title = table.Column<string>(type: "text", nullable: false),
-                    species_id = table.Column<int>(type: "integer", nullable: false),
-                    class_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_player", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -347,28 +347,6 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "buildings",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    settlement_id = table.Column<int>(type: "integer", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false),
-                    building_type_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_buildings", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_buildings_building_definitions_building_type_id",
-                        column: x => x.building_type_id,
-                        principalTable: "building_definitions",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "effect_affected_abilities",
                 columns: table => new
                 {
@@ -423,6 +401,33 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "class_base_stat_model",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    class_id = table.Column<int>(type: "integer", nullable: false),
+                    stat_definition_id = table.Column<int>(type: "integer", nullable: false),
+                    value = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_class_base_stat_model", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_class_base_stat_model_class_model_class_id",
+                        column: x => x.class_id,
+                        principalTable: "class_model",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_class_base_stat_model_stat_definitions_stat_definition_id",
+                        column: x => x.stat_definition_id,
+                        principalTable: "stat_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "effect_affected_stats",
                 columns: table => new
                 {
@@ -449,92 +454,6 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "player_stat_values",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    player_id = table.Column<int>(type: "integer", nullable: false),
-                    stat_definition_id = table.Column<int>(type: "integer", nullable: false),
-                    value = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_player_stat_values", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_player_stat_values_player_player_id",
-                        column: x => x.player_id,
-                        principalTable: "player",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_player_stat_values_stat_definitions_stat_definition_id",
-                        column: x => x.stat_definition_id,
-                        principalTable: "stat_definitions",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "hex_tiles",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    map_id = table.Column<int>(type: "integer", nullable: false),
-                    q = table.Column<int>(type: "integer", nullable: false),
-                    r = table.Column<int>(type: "integer", nullable: false),
-                    s = table.Column<int>(type: "integer", nullable: false),
-                    level = table.Column<int>(type: "integer", nullable: false),
-                    hex_tile_type = table.Column<int>(type: "integer", nullable: false),
-                    terrain_type_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_hex_tiles", x => x.id);
-                    table.CheckConstraint("CK_HexTile_CubeSum", "q + r + s = 0");
-                    table.ForeignKey(
-                        name: "fk_hex_tiles_solace_map_map_id",
-                        column: x => x.map_id,
-                        principalTable: "solace_map",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_hex_tiles_terrain_types_terrain_type_id",
-                        column: x => x.terrain_type_id,
-                        principalTable: "terrain_types",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "building_inventory",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    building_id = table.Column<int>(type: "integer", nullable: false),
-                    item_id = table.Column<int>(type: "integer", nullable: false),
-                    quantity = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_building_inventory", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_building_inventory_buildings_building_id",
-                        column: x => x.building_id,
-                        principalTable: "buildings",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_building_inventory_items_item_id",
-                        column: x => x.item_id,
-                        principalTable: "items",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "item_effects",
                 columns: table => new
                 {
@@ -556,6 +475,107 @@ namespace solace.Migrations
                         name: "fk_item_effects_items_item_id",
                         column: x => x.item_id,
                         principalTable: "items",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "building_inventory",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    building_id = table.Column<int>(type: "integer", nullable: false),
+                    item_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_building_inventory", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_building_inventory_items_item_id",
+                        column: x => x.item_id,
+                        principalTable: "items",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "buildings",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    settlement_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false),
+                    building_type_id = table.Column<int>(type: "integer", nullable: false),
+                    settlement_model_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_buildings", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_buildings_building_definitions_building_type_id",
+                        column: x => x.building_type_id,
+                        principalTable: "building_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "hex_tiles",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    map_id = table.Column<int>(type: "integer", nullable: false),
+                    q = table.Column<int>(type: "integer", nullable: false),
+                    r = table.Column<int>(type: "integer", nullable: false),
+                    s = table.Column<int>(type: "integer", nullable: false),
+                    level = table.Column<int>(type: "integer", nullable: false),
+                    hex_tile_type = table.Column<int>(type: "integer", nullable: false),
+                    terrain_type_id = table.Column<int>(type: "integer", nullable: false),
+                    settlement_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_hex_tiles", x => x.id);
+                    table.CheckConstraint("CK_HexTile_CubeSum", "q + r + s = 0");
+                    table.ForeignKey(
+                        name: "fk_hex_tiles_solace_map_map_id",
+                        column: x => x.map_id,
+                        principalTable: "solace_map",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_hex_tiles_terrain_types_terrain_type_id",
+                        column: x => x.terrain_type_id,
+                        principalTable: "terrain_types",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "player",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    is_npc = table.Column<bool>(type: "boolean", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    title = table.Column<string>(type: "text", nullable: false),
+                    species_id = table.Column<int>(type: "integer", nullable: false),
+                    settlement_location_id = table.Column<int>(type: "integer", nullable: false),
+                    class_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_player", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_player_class_model_class_id",
+                        column: x => x.class_id,
+                        principalTable: "class_model",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -614,6 +634,53 @@ namespace solace.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "player_stat_values",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    player_id = table.Column<int>(type: "integer", nullable: false),
+                    stat_definition_id = table.Column<int>(type: "integer", nullable: false),
+                    value = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_player_stat_values", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_player_stat_values_player_player_id",
+                        column: x => x.player_id,
+                        principalTable: "player",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_player_stat_values_stat_definitions_stat_definition_id",
+                        column: x => x.stat_definition_id,
+                        principalTable: "stat_definitions",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "settlements",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    leader_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_settlements", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_settlements_player_leader_id",
+                        column: x => x.leader_id,
+                        principalTable: "player",
+                        principalColumn: "id");
+                });
+
             migrationBuilder.InsertData(
                 table: "action_definitions",
                 columns: new[] { "id", "action_points", "is_combat_action", "is_item_action", "name" },
@@ -659,6 +726,16 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "class_model",
+                columns: new[] { "id", "description", "magic_user", "name", "use_two_handed_weapons" },
+                values: new object[,]
+                {
+                    { 1, "A Fighter", false, "Fighter", true },
+                    { 2, "A Rougue", false, "Rougue", false },
+                    { 3, "A Sorcerer", true, "Sorcerer", false }
+                });
+
+            migrationBuilder.InsertData(
                 table: "effects",
                 columns: new[] { "id", "ability_affected_id", "affected_body_part", "is_instant", "name" },
                 values: new object[,]
@@ -673,7 +750,7 @@ namespace solace.Migrations
                     { 8, 0, null, true, "ModIntelligence" },
                     { 9, 0, null, true, "ModEducation" },
                     { 10, 0, null, true, "ModMana" },
-                    { 11, 0, null, true, "MosMaxHealth" },
+                    { 11, 0, null, true, "ModMaxHealth" },
                     { 12, 0, null, true, "ModMagicLevel" },
                     { 13, 0, null, true, "ModTechLevel" },
                     { 14, 0, null, true, "ModExperience" },
@@ -763,6 +840,25 @@ namespace solace.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "terrain_types",
+                columns: new[] { "id", "encounter_modifier", "event_modifier", "is_passable", "name", "travel_modifier" },
+                values: new object[,]
+                {
+                    { 1, 0.5f, 0.1f, true, "Forest", 0.2f },
+                    { 2, 0.5f, 0.1f, true, "Plains", 0.1f },
+                    { 3, 0.5f, 0.1f, true, "Desert", 0.3f },
+                    { 4, 0.5f, 0.1f, true, "Mountain", 1f },
+                    { 5, 0f, 0f, false, "Water", 0f },
+                    { 6, 0.5f, 0.1f, true, "Hills", 0.5f },
+                    { 7, 1.5f, 0.4f, true, "DangerousForest", 0.2f },
+                    { 8, 1.5f, 0.4f, true, "DangerousPlains", 0.1f },
+                    { 9, 1.5f, 0.4f, true, "DangerousDesert", 0.3f },
+                    { 10, 1.5f, 0.4f, true, "DangerousMountain", 1f },
+                    { 11, 1f, 0.4f, false, "DangerousWater", 0f },
+                    { 12, 1.5f, 0.4f, true, "DangerousHills", 0.5f }
+                });
+
+            migrationBuilder.InsertData(
                 table: "building_definition_actions",
                 columns: new[] { "action_definition_id", "building_definition_id" },
                 values: new object[,]
@@ -793,6 +889,64 @@ namespace solace.Migrations
                     { 14, 9 },
                     { 7, 10 },
                     { 10, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "class_base_stat_model",
+                columns: new[] { "id", "class_id", "stat_definition_id", "value" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 20 },
+                    { 2, 1, 2, 20 },
+                    { 3, 1, 3, 7 },
+                    { 4, 1, 4, 9 },
+                    { 5, 1, 5, 2 },
+                    { 6, 1, 6, 2 },
+                    { 7, 1, 7, 0 },
+                    { 8, 1, 8, 0 },
+                    { 9, 1, 9, 0 },
+                    { 10, 1, 10, 0 },
+                    { 11, 1, 11, 0 },
+                    { 12, 1, 12, 0 },
+                    { 13, 1, 13, 5 },
+                    { 14, 1, 14, 10 },
+                    { 15, 1, 15, 1 },
+                    { 16, 1, 16, 1 },
+                    { 17, 1, 17, 3 },
+                    { 18, 2, 1, 14 },
+                    { 19, 2, 2, 14 },
+                    { 20, 2, 3, 4 },
+                    { 21, 2, 4, 5 },
+                    { 22, 2, 5, 4 },
+                    { 23, 2, 6, 4 },
+                    { 24, 2, 7, 0 },
+                    { 25, 2, 8, 0 },
+                    { 26, 2, 9, 0 },
+                    { 27, 2, 10, 0 },
+                    { 28, 2, 11, 0 },
+                    { 29, 2, 12, 0 },
+                    { 30, 2, 13, 5 },
+                    { 31, 2, 14, 10 },
+                    { 32, 2, 15, 1 },
+                    { 33, 2, 16, 1 },
+                    { 34, 2, 17, 3 },
+                    { 35, 3, 1, 8 },
+                    { 36, 3, 2, 8 },
+                    { 37, 3, 3, 3 },
+                    { 38, 3, 4, 2 },
+                    { 39, 3, 5, 8 },
+                    { 40, 3, 6, 6 },
+                    { 41, 3, 7, 3 },
+                    { 42, 3, 8, 3 },
+                    { 43, 3, 9, 0 },
+                    { 44, 3, 10, 0 },
+                    { 45, 3, 11, 0 },
+                    { 46, 3, 12, 0 },
+                    { 47, 3, 13, 5 },
+                    { 48, 3, 14, 10 },
+                    { 49, 3, 15, 1 },
+                    { 50, 3, 16, 1 },
+                    { 51, 3, 17, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -891,6 +1045,26 @@ namespace solace.Migrations
                 column: "building_type_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_buildings_settlement_id",
+                table: "buildings",
+                column: "settlement_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_buildings_settlement_model_id",
+                table: "buildings",
+                column: "settlement_model_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_class_base_stat_model_class_id",
+                table: "class_base_stat_model",
+                column: "class_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_class_base_stat_model_stat_definition_id",
+                table: "class_base_stat_model",
+                column: "stat_definition_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_effect_affected_abilities_action_id",
                 table: "effect_affected_abilities",
                 column: "action_id");
@@ -917,6 +1091,11 @@ namespace solace.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_hex_tiles_settlement_id",
+                table: "hex_tiles",
+                column: "settlement_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_hex_tiles_terrain_type_id",
                 table: "hex_tiles",
                 column: "terrain_type_id");
@@ -936,6 +1115,16 @@ namespace solace.Migrations
                 name: "ix_items_item_type_id",
                 table: "items",
                 column: "item_type_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_player_class_id",
+                table: "player",
+                column: "class_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_player_settlement_location_id",
+                table: "player",
+                column: "settlement_location_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_player_equipment_item_id",
@@ -968,11 +1157,58 @@ namespace solace.Migrations
                 name: "ix_player_stat_values_stat_definition_id",
                 table: "player_stat_values",
                 column: "stat_definition_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_settlements_leader_id",
+                table: "settlements",
+                column: "leader_id");
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_building_inventory_buildings_building_id",
+                table: "building_inventory",
+                column: "building_id",
+                principalTable: "buildings",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_buildings_settlements_settlement_id",
+                table: "buildings",
+                column: "settlement_id",
+                principalTable: "settlements",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_buildings_settlements_settlement_model_id",
+                table: "buildings",
+                column: "settlement_model_id",
+                principalTable: "settlements",
+                principalColumn: "id");
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_hex_tiles_settlements_settlement_id",
+                table: "hex_tiles",
+                column: "settlement_id",
+                principalTable: "settlements",
+                principalColumn: "id");
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_player_settlements_settlement_location_id",
+                table: "player",
+                column: "settlement_location_id",
+                principalTable: "settlements",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "fk_player_settlements_settlement_location_id",
+                table: "player");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -993,6 +1229,9 @@ namespace solace.Migrations
 
             migrationBuilder.DropTable(
                 name: "building_inventory");
+
+            migrationBuilder.DropTable(
+                name: "class_base_stat_model");
 
             migrationBuilder.DropTable(
                 name: "effect_affected_abilities");
@@ -1046,9 +1285,6 @@ namespace solace.Migrations
                 name: "items");
 
             migrationBuilder.DropTable(
-                name: "player");
-
-            migrationBuilder.DropTable(
                 name: "stat_definitions");
 
             migrationBuilder.DropTable(
@@ -1056,6 +1292,15 @@ namespace solace.Migrations
 
             migrationBuilder.DropTable(
                 name: "item_types");
+
+            migrationBuilder.DropTable(
+                name: "settlements");
+
+            migrationBuilder.DropTable(
+                name: "player");
+
+            migrationBuilder.DropTable(
+                name: "class_model");
         }
     }
 }

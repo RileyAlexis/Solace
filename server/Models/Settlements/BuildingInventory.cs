@@ -1,7 +1,7 @@
 
 using Solace.Models.Items;
 
-namespace Solace.Models.Buildings;
+namespace Solace.Models.Settlements;
 
 public class BuildingInventory
 {

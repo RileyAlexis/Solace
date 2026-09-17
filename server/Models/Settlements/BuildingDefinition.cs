@@ -1,6 +1,6 @@
 using Solace.Models.Player;
 
-namespace Solace.Models.Buildings;
+namespace Solace.Models.Settlements;
 
 public class BuildingDefinition
 {

@@ -1,8 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
+using Solace.Models.Class;
 using Solace.Models.Player;
+using Solace.Models.Settlements;
 namespace Solace.Models.Configurations;
+
+public class PlayerModelConfiguration : IEntityTypeConfiguration<PlayerModel>
+{
+    public void Configure(EntityTypeBuilder<PlayerModel> builder)
+    {
+        builder.HasOne<SettlementModel>()
+        .WithMany()
+        .HasForeignKey(p => p.SettlementLocationId);
+
+        builder.HasOne(p => p.Class)
+            .WithMany()
+            .HasForeignKey(p => p.ClassId);
+    }
+}
+
+
 
 public class PlayerEquipmentConfiguration : IEntityTypeConfiguration<PlayerEquipment>
 {
@@ -43,7 +60,7 @@ public class PlayerStatsValueConfiguration : IEntityTypeConfiguration<PlayerStat
     {
         builder.HasIndex(v => new { v.PlayerId, v.StatDefinitionId }).IsUnique();
         builder.HasOne(v => v.Player)
-            .WithMany(p => p.StatValues)
+            .WithMany(p => p.Stats)
             .HasForeignKey(v => v.PlayerId);
 
         builder.HasOne(v => v.StatDefinition)

@@ -1,9 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Solace.Models.Buildings;
+using Solace.Models.Settlements;
 using Solace.Models.Seeds;
 namespace Solace.Models.Configurations;
+
+public class BuildingModelConfiguration : IEntityTypeConfiguration<BuildingModel>
+{
+    public void Configure(EntityTypeBuilder<BuildingModel> builder)
+    {
+        builder.HasOne(b => b.BuildingType)
+        .WithMany()
+        .HasForeignKey(b => b.BuildingTypeId)
+        .IsRequired();
+
+        builder.HasOne<SettlementModel>()
+            .WithMany()
+            .HasForeignKey(p => p.SettlementId);
+    }
+}
 
 public class BuildingDefinitionConfiguration : IEntityTypeConfiguration<BuildingDefinition>
 {
@@ -42,16 +57,5 @@ public class BuildingInventoryConfiguration : IEntityTypeConfiguration<BuildingI
         builder.HasOne(e => e.Item)
         .WithMany()
         .HasForeignKey(e => e.ItemId);
-    }
-}
-
-public class BuildingModelConfiguration : IEntityTypeConfiguration<BuildingModel>
-{
-    public void Configure(EntityTypeBuilder<BuildingModel> builder)
-    {
-        builder.HasOne(b => b.BuildingType)
-        .WithMany()
-        .HasForeignKey(b => b.BuildingTypeId)
-        .IsRequired();
     }
 }

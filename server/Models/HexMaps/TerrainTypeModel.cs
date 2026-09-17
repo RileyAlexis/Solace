@@ -8,5 +8,4 @@ public class TerrainType
     public float TravelModifier { get; set; } = 0;
     public float EncounterModifier { get; set; } = 0;
     public float EventModifier { get; set; } = 0;
-
 }

@@ -12,7 +12,7 @@ using Solace.Database;
 namespace solace.Migrations
 {
     [DbContext(typeof(SolaceDbContext))]
-    [Migration("20260916151836_initial")]
+    [Migration("20260917164124_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -24,42 +24,6 @@ namespace solace.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("BuildingModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BuildingTypeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("building_type_id");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<int>("SettlementId")
-                        .HasColumnType("integer")
-                        .HasColumnName("settlement_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_buildings");
-
-                    b.HasIndex("BuildingTypeId")
-                        .HasDatabaseName("ix_buildings_building_type_id");
-
-                    b.ToTable("buildings", (string)null);
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -305,7 +269,7 @@ namespace solace.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinition", b =>
+            modelBuilder.Entity("Solace.Models.Class.ClassBaseStatModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,279 +278,446 @@ namespace solace.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("AllowsCombat")
-                        .HasColumnType("boolean")
-                        .HasColumnName("allows_combat");
+                    b.Property<int>("ClassId")
+                        .HasColumnType("integer")
+                        .HasColumnName("class_id");
 
-                    b.Property<bool>("HasInventory")
+                    b.Property<int>("StatDefinitionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("stat_definition_id");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("integer")
+                        .HasColumnName("value");
+
+                    b.HasKey("Id")
+                        .HasName("pk_class_base_stat_model");
+
+                    b.HasIndex("ClassId")
+                        .HasDatabaseName("ix_class_base_stat_model_class_id");
+
+                    b.HasIndex("StatDefinitionId")
+                        .HasDatabaseName("ix_class_base_stat_model_stat_definition_id");
+
+                    b.ToTable("class_base_stat_model", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClassId = 1,
+                            StatDefinitionId = 1,
+                            Value = 20
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClassId = 1,
+                            StatDefinitionId = 2,
+                            Value = 20
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClassId = 1,
+                            StatDefinitionId = 3,
+                            Value = 7
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClassId = 1,
+                            StatDefinitionId = 4,
+                            Value = 9
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClassId = 1,
+                            StatDefinitionId = 5,
+                            Value = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClassId = 1,
+                            StatDefinitionId = 6,
+                            Value = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClassId = 1,
+                            StatDefinitionId = 7,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ClassId = 1,
+                            StatDefinitionId = 8,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ClassId = 1,
+                            StatDefinitionId = 9,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClassId = 1,
+                            StatDefinitionId = 10,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClassId = 1,
+                            StatDefinitionId = 11,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClassId = 1,
+                            StatDefinitionId = 12,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ClassId = 1,
+                            StatDefinitionId = 13,
+                            Value = 5
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ClassId = 1,
+                            StatDefinitionId = 14,
+                            Value = 10
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ClassId = 1,
+                            StatDefinitionId = 15,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ClassId = 1,
+                            StatDefinitionId = 16,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ClassId = 1,
+                            StatDefinitionId = 17,
+                            Value = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ClassId = 2,
+                            StatDefinitionId = 1,
+                            Value = 14
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ClassId = 2,
+                            StatDefinitionId = 2,
+                            Value = 14
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ClassId = 2,
+                            StatDefinitionId = 3,
+                            Value = 4
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ClassId = 2,
+                            StatDefinitionId = 4,
+                            Value = 5
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ClassId = 2,
+                            StatDefinitionId = 5,
+                            Value = 4
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ClassId = 2,
+                            StatDefinitionId = 6,
+                            Value = 4
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ClassId = 2,
+                            StatDefinitionId = 7,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ClassId = 2,
+                            StatDefinitionId = 8,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ClassId = 2,
+                            StatDefinitionId = 9,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ClassId = 2,
+                            StatDefinitionId = 10,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ClassId = 2,
+                            StatDefinitionId = 11,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 29,
+                            ClassId = 2,
+                            StatDefinitionId = 12,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 30,
+                            ClassId = 2,
+                            StatDefinitionId = 13,
+                            Value = 5
+                        },
+                        new
+                        {
+                            Id = 31,
+                            ClassId = 2,
+                            StatDefinitionId = 14,
+                            Value = 10
+                        },
+                        new
+                        {
+                            Id = 32,
+                            ClassId = 2,
+                            StatDefinitionId = 15,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 33,
+                            ClassId = 2,
+                            StatDefinitionId = 16,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 34,
+                            ClassId = 2,
+                            StatDefinitionId = 17,
+                            Value = 3
+                        },
+                        new
+                        {
+                            Id = 35,
+                            ClassId = 3,
+                            StatDefinitionId = 1,
+                            Value = 8
+                        },
+                        new
+                        {
+                            Id = 36,
+                            ClassId = 3,
+                            StatDefinitionId = 2,
+                            Value = 8
+                        },
+                        new
+                        {
+                            Id = 37,
+                            ClassId = 3,
+                            StatDefinitionId = 3,
+                            Value = 3
+                        },
+                        new
+                        {
+                            Id = 38,
+                            ClassId = 3,
+                            StatDefinitionId = 4,
+                            Value = 2
+                        },
+                        new
+                        {
+                            Id = 39,
+                            ClassId = 3,
+                            StatDefinitionId = 5,
+                            Value = 8
+                        },
+                        new
+                        {
+                            Id = 40,
+                            ClassId = 3,
+                            StatDefinitionId = 6,
+                            Value = 6
+                        },
+                        new
+                        {
+                            Id = 41,
+                            ClassId = 3,
+                            StatDefinitionId = 7,
+                            Value = 3
+                        },
+                        new
+                        {
+                            Id = 42,
+                            ClassId = 3,
+                            StatDefinitionId = 8,
+                            Value = 3
+                        },
+                        new
+                        {
+                            Id = 43,
+                            ClassId = 3,
+                            StatDefinitionId = 9,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 44,
+                            ClassId = 3,
+                            StatDefinitionId = 10,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 45,
+                            ClassId = 3,
+                            StatDefinitionId = 11,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 46,
+                            ClassId = 3,
+                            StatDefinitionId = 12,
+                            Value = 0
+                        },
+                        new
+                        {
+                            Id = 47,
+                            ClassId = 3,
+                            StatDefinitionId = 13,
+                            Value = 5
+                        },
+                        new
+                        {
+                            Id = 48,
+                            ClassId = 3,
+                            StatDefinitionId = 14,
+                            Value = 10
+                        },
+                        new
+                        {
+                            Id = 49,
+                            ClassId = 3,
+                            StatDefinitionId = 15,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 50,
+                            ClassId = 3,
+                            StatDefinitionId = 16,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 51,
+                            ClassId = 3,
+                            StatDefinitionId = 17,
+                            Value = 3
+                        });
+                });
+
+            modelBuilder.Entity("Solace.Models.Class.ClassModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<bool>("MagicUser")
                         .HasColumnType("boolean")
-                        .HasColumnName("has_inventory");
+                        .HasColumnName("magic_user");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.HasKey("Id")
-                        .HasName("pk_building_definitions");
+                    b.Property<bool>("UseTwoHandedWeapons")
+                        .HasColumnType("boolean")
+                        .HasColumnName("use_two_handed_weapons");
 
-                    b.ToTable("building_definitions", (string)null);
+                    b.HasKey("Id")
+                        .HasName("pk_class_model");
+
+                    b.ToTable("class_model", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            AllowsCombat = false,
-                            HasInventory = true,
-                            Name = "Store"
+                            Description = "A Fighter",
+                            MagicUser = false,
+                            Name = "Fighter",
+                            UseTwoHandedWeapons = true
                         },
                         new
                         {
                             Id = 2,
-                            AllowsCombat = true,
-                            HasInventory = true,
-                            Name = "Guild"
+                            Description = "A Rougue",
+                            MagicUser = false,
+                            Name = "Rougue",
+                            UseTwoHandedWeapons = false
                         },
                         new
                         {
                             Id = 3,
-                            AllowsCombat = false,
-                            HasInventory = true,
-                            Name = "Inn"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AllowsCombat = false,
-                            HasInventory = true,
-                            Name = "Tavern"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AllowsCombat = false,
-                            HasInventory = true,
-                            Name = "Bank"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AllowsCombat = false,
-                            HasInventory = true,
-                            Name = "Storage"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AllowsCombat = true,
-                            HasInventory = false,
-                            Name = "Arena"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AllowsCombat = false,
-                            HasInventory = true,
-                            Name = "House"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AllowsCombat = true,
-                            HasInventory = true,
-                            Name = "TrainingHall"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AllowsCombat = false,
-                            HasInventory = false,
-                            Name = "ServiceProvider"
+                            Description = "A Sorcerer",
+                            MagicUser = true,
+                            Name = "Sorcerer",
+                            UseTwoHandedWeapons = false
                         });
-                });
-
-            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinitionAction", b =>
-                {
-                    b.Property<int>("BuildingDefinitionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("building_definition_id");
-
-                    b.Property<int>("ActionDefinitionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("action_definition_id");
-
-                    b.HasKey("BuildingDefinitionId", "ActionDefinitionId")
-                        .HasName("pk_building_definition_actions");
-
-                    b.HasIndex("ActionDefinitionId")
-                        .HasDatabaseName("ix_building_definition_actions_action_definition_id");
-
-                    b.ToTable("building_definition_actions", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            BuildingDefinitionId = 1,
-                            ActionDefinitionId = 10
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 1,
-                            ActionDefinitionId = 11
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 1,
-                            ActionDefinitionId = 13
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 1,
-                            ActionDefinitionId = 7
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 2,
-                            ActionDefinitionId = 14
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 2,
-                            ActionDefinitionId = 18
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 2,
-                            ActionDefinitionId = 19
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 3,
-                            ActionDefinitionId = 7
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 3,
-                            ActionDefinitionId = 17
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 3,
-                            ActionDefinitionId = 21
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 4,
-                            ActionDefinitionId = 7
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 4,
-                            ActionDefinitionId = 10
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 4,
-                            ActionDefinitionId = 5
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 4,
-                            ActionDefinitionId = 21
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 5,
-                            ActionDefinitionId = 15
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 5,
-                            ActionDefinitionId = 16
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 6,
-                            ActionDefinitionId = 9
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 6,
-                            ActionDefinitionId = 15
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 6,
-                            ActionDefinitionId = 16
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 7,
-                            ActionDefinitionId = 20
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 8,
-                            ActionDefinitionId = 17
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 8,
-                            ActionDefinitionId = 7
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 8,
-                            ActionDefinitionId = 21
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 9,
-                            ActionDefinitionId = 14
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 10,
-                            ActionDefinitionId = 10
-                        },
-                        new
-                        {
-                            BuildingDefinitionId = 10,
-                            ActionDefinitionId = 7
-                        });
-                });
-
-            modelBuilder.Entity("Solace.Models.Buildings.BuildingInventory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BuildingId")
-                        .HasColumnType("integer")
-                        .HasColumnName("building_id");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.HasKey("Id")
-                        .HasName("pk_building_inventory");
-
-                    b.HasIndex("BuildingId")
-                        .HasDatabaseName("ix_building_inventory_building_id");
-
-                    b.HasIndex("ItemId")
-                        .HasDatabaseName("ix_building_inventory_item_id");
-
-                    b.ToTable("building_inventory", (string)null);
                 });
 
             modelBuilder.Entity("Solace.Models.Effects.EffectAffectedAbility", b =>
@@ -902,7 +1033,7 @@ namespace solace.Migrations
                             Id = 11,
                             AbilityAffectedId = 0,
                             IsInstant = true,
-                            Name = "MosMaxHealth"
+                            Name = "ModMaxHealth"
                         },
                         new
                         {
@@ -1002,12 +1133,19 @@ namespace solace.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("s");
 
+                    b.Property<int?>("SettlementId")
+                        .HasColumnType("integer")
+                        .HasColumnName("settlement_id");
+
                     b.Property<int>("TerrainTypeId")
                         .HasColumnType("integer")
                         .HasColumnName("terrain_type_id");
 
                     b.HasKey("Id")
                         .HasName("pk_hex_tiles");
+
+                    b.HasIndex("SettlementId")
+                        .HasDatabaseName("ix_hex_tiles_settlement_id");
 
                     b.HasIndex("TerrainTypeId")
                         .HasDatabaseName("ix_hex_tiles_terrain_type_id");
@@ -1083,6 +1221,116 @@ namespace solace.Migrations
                         .HasName("pk_terrain_types");
 
                     b.ToTable("terrain_types", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EncounterModifier = 0.5f,
+                            EventModifier = 0.1f,
+                            IsPassable = true,
+                            Name = "Forest",
+                            TravelModifier = 0.2f
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EncounterModifier = 0.5f,
+                            EventModifier = 0.1f,
+                            IsPassable = true,
+                            Name = "Plains",
+                            TravelModifier = 0.1f
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EncounterModifier = 0.5f,
+                            EventModifier = 0.1f,
+                            IsPassable = true,
+                            Name = "Desert",
+                            TravelModifier = 0.3f
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EncounterModifier = 0.5f,
+                            EventModifier = 0.1f,
+                            IsPassable = true,
+                            Name = "Mountain",
+                            TravelModifier = 1f
+                        },
+                        new
+                        {
+                            Id = 5,
+                            EncounterModifier = 0f,
+                            EventModifier = 0f,
+                            IsPassable = false,
+                            Name = "Water",
+                            TravelModifier = 0f
+                        },
+                        new
+                        {
+                            Id = 6,
+                            EncounterModifier = 0.5f,
+                            EventModifier = 0.1f,
+                            IsPassable = true,
+                            Name = "Hills",
+                            TravelModifier = 0.5f
+                        },
+                        new
+                        {
+                            Id = 7,
+                            EncounterModifier = 1.5f,
+                            EventModifier = 0.4f,
+                            IsPassable = true,
+                            Name = "DangerousForest",
+                            TravelModifier = 0.2f
+                        },
+                        new
+                        {
+                            Id = 8,
+                            EncounterModifier = 1.5f,
+                            EventModifier = 0.4f,
+                            IsPassable = true,
+                            Name = "DangerousPlains",
+                            TravelModifier = 0.1f
+                        },
+                        new
+                        {
+                            Id = 9,
+                            EncounterModifier = 1.5f,
+                            EventModifier = 0.4f,
+                            IsPassable = true,
+                            Name = "DangerousDesert",
+                            TravelModifier = 0.3f
+                        },
+                        new
+                        {
+                            Id = 10,
+                            EncounterModifier = 1.5f,
+                            EventModifier = 0.4f,
+                            IsPassable = true,
+                            Name = "DangerousMountain",
+                            TravelModifier = 1f
+                        },
+                        new
+                        {
+                            Id = 11,
+                            EncounterModifier = 1f,
+                            EventModifier = 0.4f,
+                            IsPassable = false,
+                            Name = "DangerousWater",
+                            TravelModifier = 0f
+                        },
+                        new
+                        {
+                            Id = 12,
+                            EncounterModifier = 1.5f,
+                            EventModifier = 0.4f,
+                            IsPassable = true,
+                            Name = "DangerousHills",
+                            TravelModifier = 0.5f
+                        });
                 });
 
             modelBuilder.Entity("Solace.Models.Items.ItemEffect", b =>
@@ -1889,10 +2137,18 @@ namespace solace.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("class_id");
 
+                    b.Property<bool>("IsNPC")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_npc");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
+
+                    b.Property<int>("SettlementLocationId")
+                        .HasColumnType("integer")
+                        .HasColumnName("settlement_location_id");
 
                     b.Property<int>("SpeciesId")
                         .HasColumnType("integer")
@@ -1905,6 +2161,12 @@ namespace solace.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_player");
+
+                    b.HasIndex("ClassId")
+                        .HasDatabaseName("ix_player_class_id");
+
+                    b.HasIndex("SettlementLocationId")
+                        .HasDatabaseName("ix_player_settlement_location_id");
 
                     b.ToTable("player", (string)null);
                 });
@@ -2091,6 +2353,367 @@ namespace solace.Migrations
                     b.ToTable("refresh_tokens", (string)null);
                 });
 
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingDefinition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AllowsCombat")
+                        .HasColumnType("boolean")
+                        .HasColumnName("allows_combat");
+
+                    b.Property<bool>("HasInventory")
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_inventory");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_building_definitions");
+
+                    b.ToTable("building_definitions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Store"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AllowsCombat = true,
+                            HasInventory = true,
+                            Name = "Guild"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Inn"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Tavern"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Bank"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "Storage"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AllowsCombat = true,
+                            HasInventory = false,
+                            Name = "Arena"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AllowsCombat = false,
+                            HasInventory = true,
+                            Name = "House"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AllowsCombat = true,
+                            HasInventory = true,
+                            Name = "TrainingHall"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AllowsCombat = false,
+                            HasInventory = false,
+                            Name = "ServiceProvider"
+                        });
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingDefinitionAction", b =>
+                {
+                    b.Property<int>("BuildingDefinitionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("building_definition_id");
+
+                    b.Property<int>("ActionDefinitionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("action_definition_id");
+
+                    b.HasKey("BuildingDefinitionId", "ActionDefinitionId")
+                        .HasName("pk_building_definition_actions");
+
+                    b.HasIndex("ActionDefinitionId")
+                        .HasDatabaseName("ix_building_definition_actions_action_definition_id");
+
+                    b.ToTable("building_definition_actions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 10
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 11
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 13
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 1,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 2,
+                            ActionDefinitionId = 14
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 2,
+                            ActionDefinitionId = 18
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 2,
+                            ActionDefinitionId = 19
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 3,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 3,
+                            ActionDefinitionId = 17
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 3,
+                            ActionDefinitionId = 21
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 10
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 5
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 4,
+                            ActionDefinitionId = 21
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 5,
+                            ActionDefinitionId = 15
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 5,
+                            ActionDefinitionId = 16
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 6,
+                            ActionDefinitionId = 9
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 6,
+                            ActionDefinitionId = 15
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 6,
+                            ActionDefinitionId = 16
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 7,
+                            ActionDefinitionId = 20
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 8,
+                            ActionDefinitionId = 17
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 8,
+                            ActionDefinitionId = 7
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 8,
+                            ActionDefinitionId = 21
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 9,
+                            ActionDefinitionId = 14
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 10,
+                            ActionDefinitionId = 10
+                        },
+                        new
+                        {
+                            BuildingDefinitionId = 10,
+                            ActionDefinitionId = 7
+                        });
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingInventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("integer")
+                        .HasColumnName("building_id");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.HasKey("Id")
+                        .HasName("pk_building_inventory");
+
+                    b.HasIndex("BuildingId")
+                        .HasDatabaseName("ix_building_inventory_building_id");
+
+                    b.HasIndex("ItemId")
+                        .HasDatabaseName("ix_building_inventory_item_id");
+
+                    b.ToTable("building_inventory", (string)null);
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BuildingTypeId")
+                        .HasColumnType("integer")
+                        .HasColumnName("building_type_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("SettlementId")
+                        .HasColumnType("integer")
+                        .HasColumnName("settlement_id");
+
+                    b.Property<int?>("SettlementModelId")
+                        .HasColumnType("integer")
+                        .HasColumnName("settlement_model_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_buildings");
+
+                    b.HasIndex("BuildingTypeId")
+                        .HasDatabaseName("ix_buildings_building_type_id");
+
+                    b.HasIndex("SettlementId")
+                        .HasDatabaseName("ix_buildings_settlement_id");
+
+                    b.HasIndex("SettlementModelId")
+                        .HasDatabaseName("ix_buildings_settlement_model_id");
+
+                    b.ToTable("buildings", (string)null);
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.SettlementModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<int?>("LeaderId")
+                        .HasColumnType("integer")
+                        .HasColumnName("leader_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_settlements");
+
+                    b.HasIndex("LeaderId")
+                        .HasDatabaseName("ix_settlements_leader_id");
+
+                    b.ToTable("settlements", (string)null);
+                });
+
             modelBuilder.Entity("Solace.Models.SolaceServer", b =>
                 {
                     b.Property<int>("Id")
@@ -2138,18 +2761,6 @@ namespace solace.Migrations
                         .HasName("pk_solace_server");
 
                     b.ToTable("solace_server", (string)null);
-                });
-
-            modelBuilder.Entity("BuildingModel", b =>
-                {
-                    b.HasOne("Solace.Models.Buildings.BuildingDefinition", "BuildingType")
-                        .WithMany()
-                        .HasForeignKey("BuildingTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_buildings_building_definitions_building_type_id");
-
-                    b.Navigation("BuildingType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2209,46 +2820,25 @@ namespace solace.Migrations
                         .HasConstraintName("fk_asp_net_user_tokens_asp_net_users_user_id");
                 });
 
-            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinitionAction", b =>
+            modelBuilder.Entity("Solace.Models.Class.ClassBaseStatModel", b =>
                 {
-                    b.HasOne("Solace.Models.Player.ActionDefinition", "ActionDefinition")
+                    b.HasOne("Solace.Models.Class.ClassModel", "ClassModel")
+                        .WithMany("ClassBaseStats")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_class_base_stat_model_class_model_class_id");
+
+                    b.HasOne("Solace.Models.Player.StatDefinition", "StatDefinition")
                         .WithMany()
-                        .HasForeignKey("ActionDefinitionId")
+                        .HasForeignKey("StatDefinitionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_building_definition_actions_action_definitions_action_defin");
+                        .HasConstraintName("fk_class_base_stat_model_stat_definitions_stat_definition_id");
 
-                    b.HasOne("Solace.Models.Buildings.BuildingDefinition", "BuildingDefinition")
-                        .WithMany("AvailableActions")
-                        .HasForeignKey("BuildingDefinitionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_building_definition_actions_building_definitions_building_d");
+                    b.Navigation("ClassModel");
 
-                    b.Navigation("ActionDefinition");
-
-                    b.Navigation("BuildingDefinition");
-                });
-
-            modelBuilder.Entity("Solace.Models.Buildings.BuildingInventory", b =>
-                {
-                    b.HasOne("BuildingModel", "Building")
-                        .WithMany("Inventory")
-                        .HasForeignKey("BuildingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_building_inventory_buildings_building_id");
-
-                    b.HasOne("Solace.Models.Items.ItemModel", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_building_inventory_items_item_id");
-
-                    b.Navigation("Building");
-
-                    b.Navigation("Item");
+                    b.Navigation("StatDefinition");
                 });
 
             modelBuilder.Entity("Solace.Models.Effects.EffectAffectedAbility", b =>
@@ -2302,6 +2892,11 @@ namespace solace.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_hex_tiles_solace_map_map_id");
 
+                    b.HasOne("Solace.Models.Settlements.SettlementModel", "Settlement")
+                        .WithMany()
+                        .HasForeignKey("SettlementId")
+                        .HasConstraintName("fk_hex_tiles_settlements_settlement_id");
+
                     b.HasOne("Solace.Models.HexMaps.TerrainType", "TerrainType")
                         .WithMany()
                         .HasForeignKey("TerrainTypeId")
@@ -2310,6 +2905,8 @@ namespace solace.Migrations
                         .HasConstraintName("fk_hex_tiles_terrain_types_terrain_type_id");
 
                     b.Navigation("Map");
+
+                    b.Navigation("Settlement");
 
                     b.Navigation("TerrainType");
                 });
@@ -2389,10 +2986,29 @@ namespace solace.Migrations
                     b.Navigation("Player");
                 });
 
+            modelBuilder.Entity("Solace.Models.Player.PlayerModel", b =>
+                {
+                    b.HasOne("Solace.Models.Class.ClassModel", "Class")
+                        .WithMany()
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_player_class_model_class_id");
+
+                    b.HasOne("Solace.Models.Settlements.SettlementModel", null)
+                        .WithMany()
+                        .HasForeignKey("SettlementLocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_player_settlements_settlement_location_id");
+
+                    b.Navigation("Class");
+                });
+
             modelBuilder.Entity("Solace.Models.Player.PlayerStatValue", b =>
                 {
                     b.HasOne("Solace.Models.Player.PlayerModel", "Player")
-                        .WithMany("StatValues")
+                        .WithMany("Stats")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -2410,14 +3026,85 @@ namespace solace.Migrations
                     b.Navigation("StatDefinition");
                 });
 
-            modelBuilder.Entity("BuildingModel", b =>
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingDefinitionAction", b =>
                 {
-                    b.Navigation("Inventory");
+                    b.HasOne("Solace.Models.Player.ActionDefinition", "ActionDefinition")
+                        .WithMany()
+                        .HasForeignKey("ActionDefinitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_definition_actions_action_definitions_action_defin");
+
+                    b.HasOne("Solace.Models.Settlements.BuildingDefinition", "BuildingDefinition")
+                        .WithMany("AvailableActions")
+                        .HasForeignKey("BuildingDefinitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_definition_actions_building_definitions_building_d");
+
+                    b.Navigation("ActionDefinition");
+
+                    b.Navigation("BuildingDefinition");
                 });
 
-            modelBuilder.Entity("Solace.Models.Buildings.BuildingDefinition", b =>
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingInventory", b =>
                 {
-                    b.Navigation("AvailableActions");
+                    b.HasOne("Solace.Models.Settlements.BuildingModel", "Building")
+                        .WithMany("Inventory")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_inventory_buildings_building_id");
+
+                    b.HasOne("Solace.Models.Items.ItemModel", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_building_inventory_items_item_id");
+
+                    b.Navigation("Building");
+
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingModel", b =>
+                {
+                    b.HasOne("Solace.Models.Settlements.BuildingDefinition", "BuildingType")
+                        .WithMany()
+                        .HasForeignKey("BuildingTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_buildings_building_definitions_building_type_id");
+
+                    b.HasOne("Solace.Models.Settlements.SettlementModel", null)
+                        .WithMany()
+                        .HasForeignKey("SettlementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_buildings_settlements_settlement_id");
+
+                    b.HasOne("Solace.Models.Settlements.SettlementModel", null)
+                        .WithMany("Buildings")
+                        .HasForeignKey("SettlementModelId")
+                        .HasConstraintName("fk_buildings_settlements_settlement_model_id");
+
+                    b.Navigation("BuildingType");
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.SettlementModel", b =>
+                {
+                    b.HasOne("Solace.Models.Player.PlayerModel", "Leader")
+                        .WithMany("OwnedSettlements")
+                        .HasForeignKey("LeaderId")
+                        .HasConstraintName("fk_settlements_player_leader_id");
+
+                    b.Navigation("Leader");
+                });
+
+            modelBuilder.Entity("Solace.Models.Class.ClassModel", b =>
+                {
+                    b.Navigation("ClassBaseStats");
                 });
 
             modelBuilder.Entity("Solace.Models.Effects.EffectsModel", b =>
@@ -2441,9 +3128,26 @@ namespace solace.Migrations
                 {
                     b.Navigation("EquippedItems");
 
+                    b.Navigation("OwnedSettlements");
+
                     b.Navigation("PlayerInventory");
 
-                    b.Navigation("StatValues");
+                    b.Navigation("Stats");
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingDefinition", b =>
+                {
+                    b.Navigation("AvailableActions");
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.BuildingModel", b =>
+                {
+                    b.Navigation("Inventory");
+                });
+
+            modelBuilder.Entity("Solace.Models.Settlements.SettlementModel", b =>
+                {
+                    b.Navigation("Buildings");
                 });
 #pragma warning restore 612, 618
         }

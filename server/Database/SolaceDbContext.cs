@@ -6,7 +6,7 @@ using Solace.Models.HexMaps;
 using Solace.Models.Player;
 using Solace.Models.Effects;
 using Solace.Models.Items;
-using Solace.Models.Buildings;
+using Solace.Models.Settlements;
 
 namespace Solace.Database;
 
@@ -34,7 +34,7 @@ public class SolaceDbContext(DbContextOptions<SolaceDbContext> options) : Identi
     public DbSet<BuildingInventory> BuildingInventory { get; set; }
     public DbSet<BuildingDefinitionAction> BuildingDefinitionActions { get; set; }
 
-    // ! Add Settlements models
+    public DbSet<SettlementModel> Settlements { get; set; }
 
 
 
