@@ -12,7 +12,7 @@ using Solace.Database;
 namespace solace.Migrations
 {
     [DbContext(typeof(SolaceDbContext))]
-    [Migration("20260917164124_initial")]
+    [Migration("20260918150944_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -1033,7 +1033,7 @@ namespace solace.Migrations
                             Id = 11,
                             AbilityAffectedId = 0,
                             IsInstant = true,
-                            Name = "ModMaxHealth"
+                            Name = "ModMaxMana"
                         },
                         new
                         {

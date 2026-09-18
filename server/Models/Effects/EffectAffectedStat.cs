@@ -8,6 +8,4 @@ public class EffectAffectedStat
     public EffectsModel Effect { get; set; } = null!;
     public int StatDefinitionId { get; set; }
     public StatDefinition StatDefinition { get; set; } = null!;
-
-
 }

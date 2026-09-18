@@ -750,7 +750,7 @@ namespace solace.Migrations
                     { 8, 0, null, true, "ModIntelligence" },
                     { 9, 0, null, true, "ModEducation" },
                     { 10, 0, null, true, "ModMana" },
-                    { 11, 0, null, true, "ModMaxHealth" },
+                    { 11, 0, null, true, "ModMaxMana" },
                     { 12, 0, null, true, "ModMagicLevel" },
                     { 13, 0, null, true, "ModTechLevel" },
                     { 14, 0, null, true, "ModExperience" },

@@ -1030,7 +1030,7 @@ namespace solace.Migrations
                             Id = 11,
                             AbilityAffectedId = 0,
                             IsInstant = true,
-                            Name = "ModMaxHealth"
+                            Name = "ModMaxMana"
                         },
                         new
                         {

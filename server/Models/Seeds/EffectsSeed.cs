@@ -15,7 +15,7 @@ public static class EffectsSeed
         new EffectsModel { Id = 8, Name = "ModIntelligence", IsInstant = true },
         new EffectsModel { Id = 9, Name = "ModEducation", IsInstant = true },
         new EffectsModel { Id = 10, Name = "ModMana", IsInstant = true },
-        new EffectsModel { Id = 11, Name = "ModMaxHealth", IsInstant = true },
+        new EffectsModel { Id = 11, Name = "ModMaxMana", IsInstant = true },
         new EffectsModel { Id = 12, Name = "ModMagicLevel", IsInstant = true },
         new EffectsModel { Id = 13, Name = "ModTechLevel", IsInstant = true },
         new EffectsModel { Id = 14, Name = "ModExperience", IsInstant = true },
@@ -34,6 +34,7 @@ public static class EffectsAffectedStatSeed
     {
         new EffectAffectedStat { Id = 1, EffectId = 1, StatDefinitionId = 1 },
         new EffectAffectedStat { Id = 2, EffectId = 2, StatDefinitionId = 1 },
+
         new EffectAffectedStat { Id = 3, EffectId = 4, StatDefinitionId = 1 },
         new EffectAffectedStat { Id = 4, EffectId = 5, StatDefinitionId = 2 },
         new EffectAffectedStat { Id = 5, EffectId = 6, StatDefinitionId = 3 },
