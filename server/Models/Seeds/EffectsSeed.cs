@@ -1,3 +1,4 @@
+using Solace.Enums;
 using Solace.Models.Effects;
 namespace Solace.Models.Seeds;
 
@@ -30,6 +31,7 @@ public static class EffectsSeed
 
 public static class EffectsAffectedStatSeed
 {
+
     public static EffectAffectedStat[] Data => new[]
     {
         new EffectAffectedStat { Id = 1, EffectId = 1, StatDefinitionId = 1 },

@@ -8,6 +8,7 @@ using Microsoft.OpenApi;
 using Solace.Database;
 using Solace.Interfaces;
 using Solace.Services;
+using Solace.Services.Generators;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,21 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IMapGeneratorService, MapGenerator>();
+builder.Services.AddScoped<IMarkovNameGenerator, MarkovNameGenerator>();
+builder.Services.AddScoped<IBuildingNameGenerator, BuildingNameGenerator>();
+
+builder.Services.AddSingleton<IMarkovNameGenerator>(_ =>
+{
+    var names = File.ReadLines("data/namesList.csv")
+        .Skip(1)
+        .Select(l => l.Split(',')[0]);
+    return new MarkovNameGenerator(names, order: 4);
+});
+
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
