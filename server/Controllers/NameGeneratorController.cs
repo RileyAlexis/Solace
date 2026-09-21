@@ -15,9 +15,19 @@ public class MarkovNameGenerator : ControllerBase
     }
 
     [HttpGet("generateName")]
-    public async Task<IActionResult> GenerateName()
+    public async Task<IActionResult> GenerateName(int count = 1)
     {
-        var result = await _markovNameGenerator.GenerateName();
+        var result = await _markovNameGenerator.GenerateName(count);
+        if (result is null)
+            return BadRequest(new { error = result?.Error });
+
+        return Ok(result.Value);
+    }
+
+    [HttpGet("generateCityName")]
+    public async Task<IActionResult> GenerateCityName(int count = 1)
+    {
+        var result = await _markovNameGenerator.GenerateCityName(count);
         if (result is null)
             return BadRequest(new { error = result?.Error });
 

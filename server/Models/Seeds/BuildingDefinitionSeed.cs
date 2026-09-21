@@ -13,7 +13,7 @@ public static class BuildingDefinitionSeed
         new BuildingDefinition { Id = 6, Name = "Storage", AllowsCombat = false, HasInventory = true},
         new BuildingDefinition { Id = 7, Name = "Arena", AllowsCombat = true, HasInventory = false},
         new BuildingDefinition { Id = 8, Name = "House", AllowsCombat = false, HasInventory = true},
-        new BuildingDefinition { Id = 9, Name = "TrainingHall", AllowsCombat = true, HasInventory = true},
-        new BuildingDefinition { Id = 10, Name = "ServiceProvider", AllowsCombat = false, HasInventory = false},
+        new BuildingDefinition { Id = 9, Name = "Training Hall", AllowsCombat = true, HasInventory = true},
+        new BuildingDefinition { Id = 10, Name = "Service Provider", AllowsCombat = false, HasInventory = false},
     ];
 }

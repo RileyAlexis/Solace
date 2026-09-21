@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Solace.Models.Class;
 using Solace.Models.Player;
 using Solace.Models.Settlements;
 namespace Solace.Models.Configurations;
@@ -18,8 +17,6 @@ public class PlayerModelConfiguration : IEntityTypeConfiguration<PlayerModel>
             .HasForeignKey(p => p.ClassId);
     }
 }
-
-
 
 public class PlayerEquipmentConfiguration : IEntityTypeConfiguration<PlayerEquipment>
 {
