@@ -11,6 +11,7 @@ public class ItemModel
     public bool IsCursed { get; set; } = false;
     public bool IsRemovable { get; set; } = true;
     public bool IsEphemeral { get; set; } = false;
+    public int Level { get; set; } = 1;
 
     public int MinDamage { get; set; }
     public int MaxDamage { get; set; }

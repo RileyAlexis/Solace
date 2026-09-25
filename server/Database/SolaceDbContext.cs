@@ -49,19 +49,4 @@ public class SolaceDbContext(DbContextOptions<SolaceDbContext> options) : Identi
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SolaceDbContext).Assembly);
     }
-
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    // {
-    //     // base.OnConfiguring(optionsBuilder);
-    //     optionsBuilder.UseAsyncSeeding(async (context, _, cancellationToken) =>
-    //     {
-    //         if (!await context.Set<StatDefinition>().AnyAsync(cancellationToken))
-    //         {
-    //             var stats = StatsDefinitionSeed.Data;
-    //             await context.Set<StatDefinition>().AddRangeAsync(stats);
-    //         }
-    //     });
-    // }
-
-
 }
