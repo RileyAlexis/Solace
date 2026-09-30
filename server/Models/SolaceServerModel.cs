@@ -3,7 +3,7 @@ namespace Solace.Models;
 
 public class SolaceServer
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public required string ServerId { get; set; }
     public string? ServerTitle { get; set; }
     public string? MapName { get; set; } = null;

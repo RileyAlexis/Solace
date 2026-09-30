@@ -3,9 +3,9 @@ namespace Solace.Models.Effects;
 
 public class EffectAffectedStat
 {
-    public int Id { get; set; }
-    public int EffectId { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid EffectId { get; set; }
     public EffectsModel Effect { get; set; } = null!;
-    public int StatDefinitionId { get; set; }
+    public Guid StatDefinitionId { get; set; }
     public StatDefinition StatDefinition { get; set; } = null!;
 }

@@ -4,7 +4,7 @@ namespace Solace.Models.Settlements;
 
 public class BuildingDefinition
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = "";
     public bool HasInventory { get; set; }
     public bool AllowsCombat { get; set; }

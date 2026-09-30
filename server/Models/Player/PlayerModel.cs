@@ -5,13 +5,13 @@ namespace Solace.Models.Player;
 
 public class PlayerModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public bool IsNPC { get; set; }
     public required string Name { get; set; }
     public string Title { get; set; } = "";
-    public int SpeciesId { get; set; }
-    public int SettlementLocationId { get; set; }
-    public required int ClassId { get; set; }
+    public Guid SpeciesId { get; set; }
+    public Guid SettlementLocationId { get; set; }
+    public required Guid ClassId { get; set; }
     public required ClassModel Class { get; set; }
     public ICollection<PlayerStatValue> Stats { get; set; } = new List<PlayerStatValue>();
     public ICollection<PlayerEquipment> EquippedItems { get; set; } = new List<PlayerEquipment>();

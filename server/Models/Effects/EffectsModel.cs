@@ -2,10 +2,10 @@ namespace Solace.Models.Effects;
 
 public class EffectsModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = "";
 
-    public int AbilityAffectedId { get; set; }
+    public Guid AbilityAffectedId { get; set; }
     public List<BodyPlacement>? AffectedBodyPart { get; set; }
     public bool IsInstant { get; set; }
 

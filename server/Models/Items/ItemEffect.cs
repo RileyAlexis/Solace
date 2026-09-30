@@ -4,9 +4,9 @@ namespace Solace.Models.Items;
 
 public class ItemEffect
 {
-    public int Id { get; set; }
-    public int ItemId { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid ItemId { get; set; }
     public ItemModel Item { get; set; } = null!;
-    public int EffectId { get; set; }
+    public Guid EffectId { get; set; }
     public EffectsModel Effect { get; set; } = null!;
 }

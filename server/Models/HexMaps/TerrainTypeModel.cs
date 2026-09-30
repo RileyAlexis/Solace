@@ -2,7 +2,7 @@ namespace Solace.Models.HexMaps;
 
 public class TerrainType
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public required string Name { get; set; }
     public bool IsPassable { get; set; } = true;
     public float TravelModifier { get; set; } = 0;

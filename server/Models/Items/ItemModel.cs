@@ -3,9 +3,9 @@ namespace Solace.Models.Items;
 
 public class ItemModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = "";
-    public int ItemTypeId { get; set; }
+    public Guid ItemTypeId { get; set; }
     public required ItemTypeModel Type { get; set; }
     public bool IsEnchanted { get; set; }
     public bool IsCursed { get; set; } = false;

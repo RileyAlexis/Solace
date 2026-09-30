@@ -5,7 +5,7 @@ namespace Solace.Models;
 public class RefreshToken
 {
     [Key]
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public string HashedToken { get; set; } = null!;
     public string UserId { get; set; } = null!;
