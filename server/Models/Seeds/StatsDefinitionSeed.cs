@@ -11,15 +11,15 @@ public static class StatsDefinitionSeed
     public static readonly Guid EducationId = new Guid("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
     public static readonly Guid ManaId = new Guid("b2c3d4e5-f6a7-8901-bcde-234567890abc");
     public static readonly Guid ManaMaxId = new Guid("c3d4e5f6-a7b8-9012-cdef-34567890abcd");
-    public static readonly Guid MagicLevelId = new Guid("d4e5f6a7-b8c9-0123-defg-4567890abcde");
-    public static readonly Guid TechLevelId = new Guid("e5f6a7b8-c9d0-1234-efgh-567890abcdef");
-    public static readonly Guid ExperienceId = new Guid("f6a7b8c9-d0e1-2345-fghi-67890abcdef1");
-    public static readonly Guid LevelId = new Guid("a7b8c9d0-e1f2-3456-ghij-7890abcdef12");
-    public static readonly Guid MoraleId = new Guid("b8c9d0e1-f2a3-4567-<image|>    ijkl-890abcdef123");
-    public static readonly Guid SanityId = new Guid("c9d0e1f2-a3b4-5678-jklm-90abcdef1234");
-    public static readonly Guid ActionPointsId = new Guid("d0e1f2a3-b4c5-6789-klmn-abcdef123456");
-    public static readonly Guid ActionPointsMaxId = new Guid("e1f2a3b4-c5d6-7890-lmno-bcdef1234567");
-    public static readonly Guid CharismaId = new Guid("f2a3b4c5-d6e7-8901-mnop-cdef12345678");
+    public static readonly Guid MagicLevelId = new Guid("d4e5f6a7-b8c9-0123-abc1-4567890abcde");
+    public static readonly Guid TechLevelId = new Guid("e5f6a7b8-c9d0-1234-abc2-567890abcdef");
+    public static readonly Guid ExperienceId = new Guid("f6a7b8c9-d0e1-2345-abc3-67890abcdef1");
+    public static readonly Guid LevelId = new Guid("a7b8c9d0-e1f2-3456-abc4-7890abcdef12");
+    public static readonly Guid MoraleId = new Guid("b8c9d0e1-f2a3-4567-abc5-890abcdef123");
+    public static readonly Guid SanityId = new Guid("c9d0e1f2-a3b4-5678-abc6-90abcdef1234");
+    public static readonly Guid ActionPointsId = new Guid("d0e1f2a3-b4c5-6789-abc7-abcdef123456");
+    public static readonly Guid ActionPointsMaxId = new Guid("e1f2a3b4-c5d6-7890-abc8-bcdef1234567");
+    public static readonly Guid CharismaId = new Guid("f2a3b4c5-d6e7-8901-abc9-cdef12345678");
 
     public static StatDefinition[] Data =>
     [

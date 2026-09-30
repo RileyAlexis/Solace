@@ -54,26 +54,26 @@ public static class EffectsAffectedStatSeed
 {
     public static EffectAffectedStat[] Data => new[]
     {
-        new EffectAffectedStat { Id = new Guid("e1001-0000-0000-0000-000000000001"), EffectId = EffectsSeed.BluntDamaageId, StatDefinitionId = StatsDefinitionSeed.HealthMaxId },
-        new EffectAffectedStat { Id = new Guid("e1002-0000-0000-0000-000000000002"), EffectId = EffectsSeed.PiercingDamageId, StatDefinitionId = StatsDefinitionSeed.StrengthId },
+        new EffectAffectedStat { Id = new Guid("e1001000-0000-0000-0000-000000000001"), EffectId = EffectsSeed.BluntDamaageId, StatDefinitionId = StatsDefinitionSeed.HealthMaxId },
+        new EffectAffectedStat { Id = new Guid("e1002000-0000-0000-0000-000000000002"), EffectId = EffectsSeed.PiercingDamageId, StatDefinitionId = StatsDefinitionSeed.StrengthId },
 
-        new EffectAffectedStat { Id = new Guid("e1003-0000-0000-0000-000000000003"), EffectId = EffectsSeed.HealId, StatDefinitionId = StatsDefinitionSeed.HealthId },
-        new EffectAffectedStat { Id = new Guid("e1004-0000-0000-0000-000000000004"), EffectId = EffectsSeed.ModMaxHealthId, StatDefinitionId = StatsDefinitionSeed.HealthMaxId },
-        new EffectAffectedStat { Id = new Guid("e1005-0000-0000-0000-000000000005"), EffectId = EffectsSeed.ModStaminaId, StatDefinitionId = StatsDefinitionSeed.StaminaId },
-        new EffectAffectedStat { Id = new Guid("e1006-0000-0000-0000-000000000006"), EffectId = EffectsSeed.ModStrengthId, StatDefinitionId = StatsDefinitionSeed.StrengthId },
-        new EffectAffectedStat { Id = new Guid("e1007-0000-0000-0000-000000000007"), EffectId = EffectsSeed.ModIntelligenceId, StatDefinitionId = StatsDefinitionSeed.IntelligenceId },
-        new EffectAffectedStat { Id = new Guid("e1008-0000-0000-0000-000000000008"), EffectId = EffectsSeed.ModEducationId, StatDefinitionId = StatsDefinitionSeed.EducationId },
-        new EffectAffectedStat { Id = new Guid("e1009-0000-0000-0000-000000000009"), EffectId = EffectsSeed.ModManaId, StatDefinitionId = StatsDefinitionSeed.ManaId },
-        new EffectAffectedStat { Id = new Guid("e1010-0000-0000-0000-000000000010"), EffectId = EffectsSeed.ModMaxManaId, StatDefinitionId = StatsDefinitionSeed.ManaMaxId },
-        new EffectAffectedStat { Id = new Guid("e1011-0000-0000-0000-000000000011"), EffectId = EffectsSeed.ModMagicLevelId, StatDefinitionId = StatsDefinitionSeed.MagicLevelId },
-        new EffectAffectedStat { Id = new Guid("e1012-0000-0000-0000-000000000012"), EffectId = EffectsSeed.ModTechLevelId, StatDefinitionId = StatsDefinitionSeed.TechLevelId },
-        new EffectAffectedStat { Id = new Guid("e1013-0000-0000-0000-000000000013"), EffectId = EffectsSeed.ModExperienceId, StatDefinitionId = StatsDefinitionSeed.ExperienceId },
-        new EffectAffectedStat { Id = new Guid("e1014-0000-0000-0000-000000000014"), EffectId = EffectsSeed.ModLevelId, StatDefinitionId = StatsDefinitionSeed.LevelId },
-        new EffectAffectedStat { Id = new Guid("e1015-0000-0000-0000-000000000015"), EffectId = EffectsSeed.ModMoraleId, StatDefinitionId = StatsDefinitionSeed.MoraleId },
-        new EffectAffectedStat { Id = new Guid("e1016-0000-0000-0000-000000000016"), EffectId = EffectsSeed.ModSanityId, StatDefinitionId = StatsDefinitionSeed.SanityId },
-        new EffectAffectedStat { Id = new Guid("e1017-0000-0000-0000-000000000017"), EffectId = EffectsSeed.ModActionPointsId, StatDefinitionId = StatsDefinitionSeed.ActionPointsId },
-        new EffectAffectedStat { Id = new Guid("e1018-0000-0000-0000-000000000018"), EffectId = EffectsSeed.ModActionPointsMaxId, StatDefinitionId = StatsDefinitionSeed.ActionPointsMaxId },
-        new EffectAffectedStat { Id = new Guid("e1019-0000-0000-0000-000000000019"), EffectId = EffectsSeed.ModCharismaId, StatDefinitionId = StatsDefinitionSeed.CharismaId },
+        new EffectAffectedStat { Id = new Guid("e1003000-0000-0000-0000-000000000003"), EffectId = EffectsSeed.HealId, StatDefinitionId = StatsDefinitionSeed.HealthId },
+        new EffectAffectedStat { Id = new Guid("e1004000-0000-0000-0000-000000000004"), EffectId = EffectsSeed.ModMaxHealthId, StatDefinitionId = StatsDefinitionSeed.HealthMaxId },
+        new EffectAffectedStat { Id = new Guid("e1005000-0000-0000-0000-000000000005"), EffectId = EffectsSeed.ModStaminaId, StatDefinitionId = StatsDefinitionSeed.StaminaId },
+        new EffectAffectedStat { Id = new Guid("e1006000-0000-0000-0000-000000000006"), EffectId = EffectsSeed.ModStrengthId, StatDefinitionId = StatsDefinitionSeed.StrengthId },
+        new EffectAffectedStat { Id = new Guid("e1007000-0000-0000-0000-000000000007"), EffectId = EffectsSeed.ModIntelligenceId, StatDefinitionId = StatsDefinitionSeed.IntelligenceId },
+        new EffectAffectedStat { Id = new Guid("e1008000-0000-0000-0000-000000000008"), EffectId = EffectsSeed.ModEducationId, StatDefinitionId = StatsDefinitionSeed.EducationId },
+        new EffectAffectedStat { Id = new Guid("e1009000-0000-0000-0000-000000000009"), EffectId = EffectsSeed.ModManaId, StatDefinitionId = StatsDefinitionSeed.ManaId },
+        new EffectAffectedStat { Id = new Guid("e1010000-0000-0000-0000-000000000010"), EffectId = EffectsSeed.ModMaxManaId, StatDefinitionId = StatsDefinitionSeed.ManaMaxId },
+        new EffectAffectedStat { Id = new Guid("e1011000-0000-0000-0000-000000000011"), EffectId = EffectsSeed.ModMagicLevelId, StatDefinitionId = StatsDefinitionSeed.MagicLevelId },
+        new EffectAffectedStat { Id = new Guid("e1012000-0000-0000-0000-000000000012"), EffectId = EffectsSeed.ModTechLevelId, StatDefinitionId = StatsDefinitionSeed.TechLevelId },
+        new EffectAffectedStat { Id = new Guid("e1013000-0000-0000-0000-000000000013"), EffectId = EffectsSeed.ModExperienceId, StatDefinitionId = StatsDefinitionSeed.ExperienceId },
+        new EffectAffectedStat { Id = new Guid("e1014000-0000-0000-0000-000000000014"), EffectId = EffectsSeed.ModLevelId, StatDefinitionId = StatsDefinitionSeed.LevelId },
+        new EffectAffectedStat { Id = new Guid("e1015000-0000-0000-0000-000000000015"), EffectId = EffectsSeed.ModMoraleId, StatDefinitionId = StatsDefinitionSeed.MoraleId },
+        new EffectAffectedStat { Id = new Guid("e1016000-0000-0000-0000-000000000016"), EffectId = EffectsSeed.ModSanityId, StatDefinitionId = StatsDefinitionSeed.SanityId },
+        new EffectAffectedStat { Id = new Guid("e1017000-0000-0000-0000-000000000017"), EffectId = EffectsSeed.ModActionPointsId, StatDefinitionId = StatsDefinitionSeed.ActionPointsId },
+        new EffectAffectedStat { Id = new Guid("e1018000-0000-0000-0000-000000000018"), EffectId = EffectsSeed.ModActionPointsMaxId, StatDefinitionId = StatsDefinitionSeed.ActionPointsMaxId },
+        new EffectAffectedStat { Id = new Guid("e1019000-0000-0000-0000-000000000019"), EffectId = EffectsSeed.ModCharismaId, StatDefinitionId = StatsDefinitionSeed.CharismaId },
     };
 }
 
@@ -81,10 +81,10 @@ public static class EffectAffectedAbilitySeed
 {
     public static EffectAffectedAbility[] Data => new[]
     {
-        new EffectAffectedAbility { Id = new Guid("a0001-0000-0000-0000-000000000001"), EffectId = EffectsSeed.StunId, ActionId = new Guid("a0002-0000-0000-0000-000000000002") },
-        new EffectAffectedAbility { Id = new Guid("a0003-0000-0000-0000-000000000003"), EffectId = EffectsSeed.StunId, ActionId = new Guid("a0004-0000-0000-0000-000000000004") },
-        new EffectAffectedAbility { Id = new Guid("a0005-0000-0000-0000-000000000005"), EffectId = EffectsSeed.StunId, ActionId = new Guid("a0006-0000-0000-0000-000000000006") },
-        new EffectAffectedAbility { Id = new Guid("a0007-0000-0000-0000-000000000007"), EffectId = EffectsSeed.StunId, ActionId = new Guid("a0008-0000-0000-0000-000000000008") },
-        new EffectAffectedAbility { Id = new Guid("a0009-0000-0000-0000-000000000009"), EffectId = EffectsSeed.StunId, ActionId = new Guid("a0010-0000-0000-0000-000000000010") },
+        new EffectAffectedAbility { Id = new Guid("a0001000-0000-0000-0000-000000000001"), EffectId = EffectsSeed.StunId, ActionId = ActionDefinitionSeed.AttackId },
+        new EffectAffectedAbility { Id = new Guid("a0003000-0000-0000-0000-000000000003"), EffectId = EffectsSeed.StunId, ActionId = ActionDefinitionSeed.DefendId },
+        new EffectAffectedAbility { Id = new Guid("a0005000-0000-0000-0000-000000000005"), EffectId = EffectsSeed.StunId, ActionId = ActionDefinitionSeed.CastId },
+        new EffectAffectedAbility { Id = new Guid("a0007000-0000-0000-0000-000000000007"), EffectId = EffectsSeed.StunId, ActionId = ActionDefinitionSeed.RunId },
+        new EffectAffectedAbility { Id = new Guid("a0009000-0000-0000-0000-000000000009"), EffectId = EffectsSeed.StunId, ActionId = ActionDefinitionSeed.MoveId },
     };
 }
